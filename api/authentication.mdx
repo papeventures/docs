@@ -1,0 +1,56 @@
+---
+title: "Authenticate with the MediaOS API"
+description: "Learn how to authenticate MediaOS API requests using HTTP Basic Auth or an API key, and understand the plan and role requirements for access."
+---
+
+Every request to the MediaOS API must be authenticated. The API supports two authentication methods: HTTP Basic Auth using your MediaOS username and password, or an `apiKey` query parameter. Both methods are equivalent — choose whichever fits your integration best.
+
+<Warning>
+API access requires a **Premium plan**. If your account is on a lower tier, the API returns a `500` error with the message `Your current plan does not include API integration`. The authenticating user must also have the **Administrator** role; non-admin users receive a `500` error regardless of plan.
+</Warning>
+
+## Base URL
+
+All API endpoints are served from your MediaOS subdomain:
+
+```
+https://yourcompany.mediaosnow.com/API/
+```
+
+Replace `yourcompany` with your actual MediaOS subdomain.
+
+## HTTP Basic Auth
+
+Pass your MediaOS username and password as HTTP Basic Auth credentials on every request. Most HTTP clients and command-line tools have built-in support for this.
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/advertisers/
+```
+
+Your username and password are the same credentials you use to log in to the MediaOS web app.
+
+## API Key
+
+You can also authenticate by appending your `apiKey` as a query parameter. This is useful for Zapier integrations and other no-code tools that do not support Basic Auth headers.
+
+```bash
+curl "https://yourcompany.mediaosnow.com/API/advertisers/?apiKey=YOUR_API_KEY"
+```
+
+<Info>
+To find your API key, go to **Settings → Integrations → API** (or the **Zapier** page) inside your MediaOS account.
+</Info>
+
+## Authentication errors
+
+| HTTP status | Message | Cause |
+|---|---|---|
+| `401 Unauthorized` | _(WWW-Authenticate challenge)_ | No credentials were supplied — neither Basic Auth nor `apiKey`. |
+| `500` | `MediaOS account is canceled.` | Your MediaOS account has been canceled. |
+| `500` | `Your current plan does not include API integration.` | Your account is not on the Premium plan. |
+| `500` | `User must be an administrator to connect to the API.` | The authenticated user does not have the Administrator role. |
+
+## Next steps
+
+Once authenticated, all list endpoints support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.

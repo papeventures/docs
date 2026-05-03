@@ -1,0 +1,130 @@
+---
+title: "Get Started with MediaOS"
+description: Learn how to set up MediaOS and complete your first ad sales workflow—from adding an advertiser to sending a contract—in under 15 minutes.
+---
+
+This guide walks you through the core ad sales workflow in MediaOS: creating an advertiser record, browsing your product catalog, building a contract, and sending it for signature or marking it sold. By the end, you'll have a completed contract and a generated invoice ready to send.
+
+<Info>
+  MediaOS offers a free 14-day trial. No charge is applied to your card until the trial period ends, and you can cancel at any time.
+</Info>
+
+<Steps>
+
+  <Step title="Sign in to MediaOS">
+    Go to [app.mediaosnow.com](https://app.mediaosnow.com) and sign in with your email and password. If you're setting up a brand-new account, complete the sign-up form with your company name, name, email, and a password of at least 8 characters.
+
+    After signing in you'll land on the **Dashboard**, which shows your pipeline summary, recent activity, and upcoming tasks.
+
+    <Tip>
+      If your company uses single sign-on or you've been invited by an existing account administrator, use the link in your invitation email rather than the sign-up form.
+    </Tip>
+  </Step>
+
+  <Step title="Add your first advertiser">
+    Advertisers are the companies or individuals who buy advertising from you. Every contract in MediaOS is linked to an advertiser record.
+
+    1. In the left navigation, click **Advertisers**.
+    2. Click **Add Advertiser**.
+    3. Enter the company name and any contact details you have—website, phone, and address are optional but useful for invoicing.
+    4. Click **Save**.
+
+    Once the advertiser is saved, you can add individual contacts (people) within that company and associate them with the account. Contacts receive proposals and invoices, so add at least one email address.
+
+    <Note>
+      If the advertiser works through an agency, you can link an agency record to the advertiser. The agency will then appear on contracts and can be invoiced separately.
+    </Note>
+  </Step>
+
+  <Step title="Browse products and check availability">
+    Products represent the ad placements you sell—print pages, digital banners, newsletter sponsorships, event listings, and so on. Before adding a product to a contract, check that the placement is available for the dates your advertiser wants.
+
+    1. In the left navigation, click **Products** (or **Inventory**).
+    2. Browse or search for the product you want to sell.
+    3. Select a publication, issue, or date range to view available slots.
+    4. Note any placement details—size, run date, and list price—that you'll use when building the contract.
+
+    <Tip>
+      Your administrator sets up products and their availability calendars in advance. If a product or issue is missing, ask your admin to add it under **Settings → Products**.
+    </Tip>
+  </Step>
+
+  <Step title="Create a contract or proposal">
+    A proposal is a draft you send to an advertiser for approval. Once the advertiser agrees, it becomes a contract. You build both the same way in MediaOS.
+
+    1. Open the advertiser record you created in step 2.
+    2. Click **New Contract** (or **New Proposal**).
+    3. Add line items by selecting the products you identified in step 3. For each line item, set the run date, size, position, and net price.
+    4. Apply a discount or add secondary line items (such as an ad production fee) if needed.
+    5. Select the **contract terms** you want to display at the bottom of the document. Terms are configured in **Settings → Contract Terms**.
+    6. Add a **media kit** to the front of the proposal if you want to include audience or rate card information.
+    7. Click **Save**.
+
+    MediaOS previews the proposal as a formatted PDF. Review it before sending.
+
+    <Note>
+      If your plan includes **Templates** (Plus and above), you can apply a branded template with your logo and custom color scheme before sending.
+    </Note>
+  </Step>
+
+  <Step title="Send for e-signature or mark as sold">
+    Once the proposal looks right, move it forward.
+
+    **Option A — Send for e-signature via DocuSign (Plus and above):**
+    1. Click **Send for Signature**.
+    2. Confirm the signer's name and email address.
+    3. MediaOS sends the proposal to DocuSign. When the advertiser signs, the proposal automatically converts to a signed contract in MediaOS.
+
+    **Option B — Send by email:**
+    1. Click **Send Proposal**.
+    2. Choose the contact to send it to and customize the email message.
+    3. MediaOS emails a PDF of the proposal and tracks when the advertiser opens it.
+
+    **Option C — Mark as sold directly:**
+    If the advertiser has already agreed verbally or in writing outside of MediaOS, open the contract and click **Mark as Sold** to record the sale immediately without sending for signature.
+
+    <Warning>
+      Marking a contract as sold is irreversible through the standard interface. Make sure all line items and pricing are correct before proceeding.
+    </Warning>
+  </Step>
+
+  <Step title="Generate an invoice">
+    Once a contract is sold, you can generate an invoice to request payment.
+
+    1. Open the contract.
+    2. Click **Generate Invoice** (or navigate to the **Invoices** tab within the contract).
+    3. Choose whether to invoice for the full contract amount or a partial amount.
+    4. Set the invoice due date and select a billing contact.
+    5. Click **Save** to create the invoice.
+
+    From the invoice record you can:
+    - **Email the invoice** directly to the advertiser.
+    - **Record a payment** when the advertiser pays by check or bank transfer.
+    - **Accept a credit card payment** if you've connected Stripe or Authorize.Net.
+    - **Sync to QuickBooks** if the integration is enabled on your account (Plus and above).
+
+    <Tip>
+      If your account is configured for automated billing, MediaOS can generate and send invoices on a schedule without manual intervention. See the [automation guide](/guides/automation) for details.
+    </Tip>
+  </Step>
+
+</Steps>
+
+## Next steps
+
+Now that you've completed your first workflow, explore these areas to get more out of MediaOS:
+
+<CardGroup cols={2}>
+  <Card title="Account setup" icon="settings" href="/account-setup">
+    Configure branding, tax rates, invoice templates, and integrations.
+  </Card>
+  <Card title="Sales workflow guide" icon="arrow-right-circle" href="/guides/sales-workflow">
+    Learn how pipelines, tasks, and follow-ups keep your team on track.
+  </Card>
+  <Card title="Ad delivery" icon="send" href="/guides/ad-delivery">
+    Track artwork, proofs, and delivery confirmations for each insertion.
+  </Card>
+  <Card title="API authentication" icon="key" href="/api/authentication">
+    Integrate MediaOS with your own systems using the REST API.
+  </Card>
+</CardGroup>

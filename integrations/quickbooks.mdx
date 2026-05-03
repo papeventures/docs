@@ -1,0 +1,85 @@
+---
+title: "Connect MediaOS to QuickBooks"
+description: "Sync MediaOS invoices, payments, and contacts bidirectionally with QuickBooks Online. Changes in either system flow back to the other automatically."
+---
+
+The QuickBooks integration links your MediaOS account to QuickBooks Online so that invoices, payments, and advertiser contact records stay in sync across both platforms. The sync is bidirectional by default: changes you make in QuickBooks flow back into MediaOS, and changes in MediaOS flow to QuickBooks. The integration is available on the **Plus plan** and above.
+
+<Warning>
+  If you already have existing data in both QuickBooks and MediaOS, contact MediaOS support before connecting your accounts. Connecting two populated accounts without guidance can result in duplicate records.
+</Warning>
+
+## Connecting QuickBooks
+
+<Steps>
+  <Step title="Navigate to the QuickBooks integration page">
+    Go to **Settings > Integrations** and click **Configure** next to **QuickBooks**. The integration panel opens inside MediaOS.
+  </Step>
+  <Step title="Authorize the connection via OAuth">
+    Click the **Connect to QuickBooks** button (the official Intuit button). You are redirected to Intuit's authorization page. Sign in with your QuickBooks Online credentials and grant MediaOS permission to access your company file. After approving, you are returned to MediaOS and the connection status updates to show your company name.
+
+    <Note>
+      MediaOS uses QuickBooks Online OAuth 2.0. You do not share your QuickBooks password with MediaOS — the authorization token is stored securely.
+    </Note>
+  </Step>
+  <Step title="Map QuickBooks items to MediaOS products">
+    Once connected, MediaOS displays a product mapping panel. For each MediaOS product (publication, digital placement, etc.), select the corresponding QuickBooks **Item** from the dropdown. QuickBooks items map to the line items that appear on invoices in QuickBooks.
+
+    If you do not see the item you need, create it in QuickBooks first, then return to MediaOS and refresh the mapping panel.
+  </Step>
+  <Step title="Map tax codes">
+    If your account collects sales tax, use the tax code mapping panel to link each MediaOS tax rate to the corresponding QuickBooks **Tax Code**. When an invoice is sent to QuickBooks, the mapped tax code is applied automatically.
+
+    <Tip>
+      If you use QuickBooks to manage all tax calculations, you can set up your products as non-taxable in MediaOS and rely entirely on QuickBooks tax codes at sync time.
+    </Tip>
+  </Step>
+  <Step title="Configure invoice sync settings">
+    On the QuickBooks settings page, review the available sync options:
+
+    - **One-way sync** — invoices flow from MediaOS to QuickBooks only. Changes made in QuickBooks are not pulled back. Enable this if your accounting team works exclusively in QuickBooks and should not have changes overwritten.
+    - **Bidirectional sync** (default) — changes in either system are reconciled. Recommended for teams that update invoice statuses and payments in both tools.
+  </Step>
+  <Step title="Send your first invoice to QuickBooks">
+    Open any invoice in MediaOS. In the invoice panel, click the **QuickBooks** icon or the sync button. MediaOS checks whether the invoice is already in QuickBooks:
+
+    - If the invoice is not yet in QuickBooks, click **Upload to QuickBooks** to push it.
+    - If the invoice is already in sync, MediaOS shows a green checkmark and the message "Things are matching up!"
+    - If there is a discrepancy, MediaOS lists the specific issues preventing sync. Resolve them (often a missing item mapping or unmapped customer), then re-upload.
+
+    You can also click **Edit in QuickBooks** to open the invoice directly in the QuickBooks Online interface.
+  </Step>
+</Steps>
+
+## Syncing payments
+
+Payments recorded in MediaOS can be synced to QuickBooks as payment transactions linked to the corresponding invoice. Open a payment record in MediaOS and use the QuickBooks sync panel to upload the payment.
+
+<Note>
+  Payment sync is not available when the integration is set to one-way sync mode. Switch to bidirectional sync to enable payment sync.
+</Note>
+
+If a payment was previously synced but was deleted in QuickBooks, MediaOS detects the broken link and offers a **Re-create in QuickBooks** option. Click it to push the payment again as a new record in QuickBooks.
+
+## Error log and troubleshooting
+
+MediaOS keeps a running log of QuickBooks sync errors. To view it, go to **Settings > Integrations > QuickBooks** and look for the **Error Log** link. The log shows the date, error message, detail, affected field, and QuickBooks error code for each failure in the past 48 hours.
+
+**Common errors and fixes:**
+
+| Error | Likely cause | Fix |
+|---|---|---|
+| "Item not found" | A MediaOS product is not mapped to a QuickBooks item | Open the item mapping panel and assign the missing product |
+| "Customer not found" | The advertiser does not exist in QuickBooks | Let MediaOS create the customer automatically on next sync, or manually create them in QuickBooks first |
+| "Tax code invalid" | A MediaOS tax rate is not mapped to a QuickBooks tax code | Open the tax code mapping and assign the correct code |
+| "Token expired" | The OAuth token has expired or been revoked | Disconnect and reconnect QuickBooks from the integration page |
+
+If an invoice shows "Ugh Oh... Something's not quite right," click the invoice's sync panel for a list of specific issues. Editing and resaving the invoice often resolves field-level validation errors.
+
+## Resetting the connection
+
+To disconnect QuickBooks, go to **Settings > Integrations > QuickBooks** and click **Disconnect QuickBooks**. This removes the OAuth token from MediaOS. Your data in QuickBooks is not deleted.
+
+<Warning>
+  Disconnecting and reconnecting QuickBooks clears the sync state. MediaOS will treat previously synced invoices as new records on the next upload unless the QuickBooks transaction IDs are still present. Contact support before resetting if you have a large number of synced records.
+</Warning>

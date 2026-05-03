@@ -1,0 +1,99 @@
+---
+title: "Managing Users and Permissions in MediaOS"
+description: "Invite team members, assign roles, control access levels, and manage seats in your MediaOS account. Admins control all user and permission settings."
+---
+
+Every person on your team who needs to access MediaOS requires their own user account. MediaOS uses a role-based permission system: the roles you assign to a user determine which parts of the platform they can see and what actions they can take. Only users with the **Administrator** role can manage other users. Navigate to **Settings > Users & Groups** (or the **Users** section under your account menu) to manage your team.
+
+## Inviting a new user
+
+<Steps>
+  <Step title="Open the Users page">
+    Go to the **Users & Groups** section in MediaOS. You see a list of all active users on your account.
+  </Step>
+  <Step title="Check your available licenses">
+    MediaOS charges per seat. Before adding a user, the **Add User** button is available only if you have an open license slot. If all slots are filled, clicking **Add User** opens the license wizard, which walks you through purchasing an additional seat.
+  </Step>
+  <Step title="Click Add User and fill in the user's details">
+    Enter the new user's:
+    - **First name** and **last name**
+    - **Email address** — this becomes their login. Each email must be unique across MediaOS.
+    - **Phone** (optional)
+    - **Password** — set an initial password. The user can change it after their first login.
+    - **Daily Digest Email** — toggle on to send the user a daily summary of account activity.
+  </Step>
+  <Step title="Assign roles and permissions">
+    Select the appropriate roles for the user (see the roles section below). Click **Save** to create the account. The user can log in immediately using the email and password you set.
+  </Step>
+</Steps>
+
+## User roles
+
+MediaOS uses a hierarchical role system. Higher-tier roles include the permissions of lower-tier roles within their category.
+
+### Administrator
+
+Administrators have full access to every part of MediaOS, including all settings pages, all advertiser records, all financial data, and user management. Administrators are the only users who can:
+
+- Access and modify account settings
+- Add, edit, archive, or restore other users
+- Access the MediaOS API (API access is restricted to admin accounts)
+- Configure integrations
+
+Assign the Administrator role only to trusted team members who need full system access.
+
+### Sales Manager
+
+Sales Managers have access to all advertiser accounts, all contracts, and all sales activity across the team. They can view and run reports across users, reassign accounts, and manage pipeline stages. A Sales Manager cannot access account-level settings or manage users.
+
+### Role-based access (non-admin, non-manager)
+
+For users who are not Administrators or Sales Managers, you can grant access to specific functional areas by toggling individual roles:
+
+| Role | What the user can access |
+|---|---|
+| **Sales** | Their assigned advertiser accounts, contacts, proposals, and contracts. Cannot see other reps' accounts unless granted explicit access. |
+| **Accounting** | Invoices, payments, and accounting reports across all accounts. |
+| **Reporting** | Metrics and reporting dashboards. No write access to advertiser data. |
+| **Delivery/Production** | Ad material, insertion orders, and production-related records. |
+| **Editorial Manager** | Editorial content management features. |
+| **Studio** | Studio-related delivery and production tasks. |
+| **Members** | Membership management (requires the Members module). |
+| **Subscription Genius** | Circulation management via Subscription Genius (requires the integration to be connected). |
+
+### Additional permissions
+
+For non-admin and non-Sales Manager users, you can also toggle individual permissions:
+
+- **Export Contacts** — allows the user to export contact lists to CSV.
+- **Allow Importing** — allows the user to use MediaOS's data import tools.
+
+## Assigning ownership of advertisers and contacts
+
+Each advertiser account in MediaOS can be assigned to a specific sales rep. Ownership determines which accounts a Sales user sees by default.
+
+To reassign an advertiser:
+
+1. Open the advertiser record.
+2. Click the **Owner** or **Sales Rep** field and select the appropriate user.
+
+You can also use the **Reporting Structure** section on the user's edit page to assign a sales rep to a **Sales Manager**. This creates a reporting hierarchy so the Sales Manager's dashboard includes all accounts owned by their direct reports.
+
+**User Groups** (Premium plan) allow you to restrict which products and advertiser accounts a user can see. When a user is in a group, they only see advertisers and products that belong to the same group. This is useful for organizations with multiple brands or geographic territories served by separate teams. Manage groups under the **Groups** tab on the Users page.
+
+## Deactivating users
+
+When a team member leaves, you have two options:
+
+- **Disable login** — on the user's edit page, toggle **Login Enabled** off. The user can no longer log in, but they remain in your user list and their seat still counts toward your license.
+- **Archive** — click **Archive** on the user's record. Archiving removes the user from the active list and frees their license seat. Archived users' historical activity (contracts, notes, calls) remains associated with their name in the system. Administrators can restore an archived user at any time if a license is available.
+
+<Warning>
+  Inactive users (login disabled but not archived) still count as billable seats. If you want to free a seat, archive the user rather than just disabling their login.
+</Warning>
+
+## API access
+
+Access to the MediaOS API requires an **Administrator** account. Regular users, Sales Managers, and role-based users cannot generate or use API keys. If a team member needs API access — for example, to build a Zapier integration or connect a custom tool — you must either grant them Administrator access or create a dedicated admin service account.
+
+See [Automate MediaOS with Zapier](/integrations/zapier) for guidance on using the API through Zapier.

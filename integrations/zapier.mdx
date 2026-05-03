@@ -1,0 +1,101 @@
+---
+title: "Automate MediaOS with Zapier"
+description: "Use the MediaOS Zapier integration to connect your ad sales data to hundreds of other apps and automate repetitive tasks without writing code."
+---
+
+Zapier connects MediaOS to more than 1,000 other web applications through automated workflows called Zaps. Each Zap watches for a trigger event in one app and then performs one or more actions in another. With the MediaOS Zapier integration, you can automatically notify your team when a contract is signed, log new payments to a spreadsheet, add advertisers to your email list, and much more. The Zapier integration requires a **Premium** MediaOS plan.
+
+## How the integration works
+
+MediaOS exposes its data through an API that Zapier uses to watch for new records and take actions. When you build a Zap with MediaOS as the trigger app, Zapier polls the MediaOS API at regular intervals and fires whenever a qualifying new record is found. You can also use MediaOS as an action app to create or update records in MediaOS when something happens in another tool.
+
+Because Zapier connects to MediaOS via your API credentials, you do not need to install any software — you just authenticate once in Zapier and your connection is live.
+
+## Finding your MediaOS API credentials
+
+<Steps>
+  <Step title="Open the Zapier integration page">
+    In MediaOS, go to **Settings > Integrations** and click **Configure** next to **Zapier**. The Zapier page provides instructions and a link to the Zapier developer invite.
+  </Step>
+  <Step title="Locate your API key">
+    Your MediaOS API key is available in **Settings > Integrations > Zapier** or through the main API settings page. Copy the key — you will paste it into Zapier during authentication.
+
+    <Warning>
+      Treat your API key like a password. Anyone with your API key can read and write data in your MediaOS account. Do not share it in public channels or commit it to source control.
+    </Warning>
+  </Step>
+</Steps>
+
+## Authenticating MediaOS in Zapier
+
+When you add MediaOS as a trigger or action in Zapier's Zap editor, Zapier prompts you to connect your account:
+
+1. Click **Sign in to MediaOS**.
+2. Enter your MediaOS API key in the credentials field.
+3. Click **Yes, Continue**. Zapier tests the connection and confirms it is working.
+
+You only need to authenticate once. All subsequent Zaps you build can reuse the same connection.
+
+## Available triggers
+
+Zapier triggers fire when new data appears in MediaOS. The following trigger events are available:
+
+| Trigger | Description |
+|---|---|
+| New Advertiser | Fires when a new advertiser account is created in MediaOS. |
+| New Contract | Fires when a new contract is created (including converted proposals). |
+| New Invoice | Fires when a new invoice is generated in MediaOS. |
+| New Payment | Fires when a payment is recorded against an invoice. |
+
+<Note>
+  Zapier polls MediaOS for new records approximately every 5–15 minutes on most Zapier plans. For near-real-time automation, consider using Zapier's webhook trigger combined with MediaOS workflows where available.
+</Note>
+
+## Available actions
+
+Zapier actions let you create or update records in MediaOS based on events in other apps. Actions currently supported:
+
+| Action | Description |
+|---|---|
+| Create Advertiser | Adds a new advertiser account in MediaOS. |
+| Create Contact | Adds a contact linked to an advertiser. |
+
+## Example Zap: new contract → Slack notification
+
+This Zap sends a message to a Slack channel every time a new contract is created in MediaOS, keeping your whole team informed.
+
+**Trigger:** MediaOS — New Contract
+
+**Action:** Slack — Send Channel Message
+
+**Setup:**
+1. In the Zapier editor, choose **MediaOS** as the trigger app and select **New Contract**.
+2. Connect your MediaOS account if you have not already.
+3. Test the trigger to pull in a sample contract record.
+4. Add a Slack action and select **Send Channel Message**.
+5. Connect your Slack workspace.
+6. Choose the target channel (e.g., `#sales`).
+7. In the message field, use Zapier's dynamic data to include contract details:
+   ```
+   New contract signed: {{advertiser_name}} — {{contract_total}} due {{start_date}}
+   ```
+8. Test and enable the Zap.
+
+## Example Zap: new payment → update Google Sheet
+
+This Zap appends a row to a Google Sheet every time a payment is recorded in MediaOS, giving you a running log of received revenue.
+
+**Trigger:** MediaOS — New Payment
+
+**Action:** Google Sheets — Create Spreadsheet Row
+
+**Setup:**
+1. Choose **MediaOS — New Payment** as the trigger.
+2. Add a **Google Sheets — Create Spreadsheet Row** action.
+3. Select your spreadsheet and the target worksheet (e.g., "Payments Log").
+4. Map columns: Date → `{{payment_date}}`, Advertiser → `{{advertiser_name}}`, Amount → `{{amount}}`, Invoice → `{{invoice_number}}`.
+5. Test and enable the Zap.
+
+<Tip>
+  Use Zapier's built-in filters between trigger and action steps to narrow which records get processed — for example, only pass payments above a certain dollar threshold, or only send Slack notifications for contracts in a specific publication.
+</Tip>

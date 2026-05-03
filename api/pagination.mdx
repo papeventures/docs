@@ -1,0 +1,56 @@
+---
+title: "Pagination and Sorting the MediaOS API"
+description: "Use the page, per_page, sort_by, and sort_order parameters to paginate through and sort results from any MediaOS API list endpoint."
+---
+
+All MediaOS list endpoints share a common set of pagination and sorting parameters. You can use these parameters on any endpoint that returns a collection of records to control page size, navigate through results, and change the order in which records are returned.
+
+## Pagination parameters
+
+<ParamField query="page" type="integer">
+  The page number to return. Pages are 1-indexed. Defaults to `1`.
+</ParamField>
+
+<ParamField query="per_page" type="integer">
+  The number of records to return per page. Defaults to `25`. Maximum value is `100`.
+</ParamField>
+
+## Sorting parameters
+
+<ParamField query="sort_by" type="string">
+  The field to sort results by. Accepted values vary by endpoint — each endpoint's reference page lists its valid `sort_by` values. If you pass an unrecognized field name the API returns a `405` error.
+</ParamField>
+
+<ParamField query="sort_order" type="string">
+  The sort direction. Accepted values are `asc` and `desc`. Defaults to `desc`. Passing any other value returns a `405` error.
+</ParamField>
+
+## Response envelope
+
+Every list endpoint wraps its results in a JSON object. The exact key used for the array varies by endpoint (for example, `advertisers`, `contacts`, `contracts`), but the envelope always includes a `count` field with the total number of matching records before pagination is applied.
+
+```json
+{
+  "advertisers": [ ... ],
+  "count": 142
+}
+```
+
+Use `count` together with `per_page` to calculate the total number of pages:
+
+```
+total_pages = ceil(count / per_page)
+```
+
+## Example: paginated and sorted request
+
+The following request fetches the second page of advertisers, 10 records at a time, sorted alphabetically by name:
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/advertisers/?page=2&per_page=10&sort_by=name&sort_order=asc"
+```
+
+<Note>
+Pagination and sorting parameters are supported on all list endpoints. Individual endpoint pages document the valid `sort_by` fields for that resource.
+</Note>

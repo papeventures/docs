@@ -1,0 +1,208 @@
+---
+title: "MediaOS: Ad Sales & Management Platform"
+description: Find guides for ad sales workflows, contract management, invoicing, ad delivery, integrations, and the MediaOS REST API—all in one place.
+mode: custom
+---
+
+<div className="mx-auto flex w-full max-w-5xl flex-col gap-14 px-4 py-12 lg:py-16">
+  <div className="flex flex-col items-center gap-12">
+    <div className="flex w-full max-w-lg flex-col gap-1">
+      <h1 className="text-center text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-50">
+        How can we help?
+      </h1>
+      <p className="text-center text-balance text-base text-gray-600 dark:text-gray-400 mt-2">
+        Search the MediaOS Help Center for setup guides, sales workflows, API reference, and integrations—all in one
+        place.
+      </p>
+    </div>
+
+    <div className="flex w-full max-w-lg flex-col gap-4">
+      <div className="flex w-full flex-col gap-2.5 sm:flex-row sm:items-stretch">
+        <div className="kb-search-entry min-w-0 w-full flex-1">
+          <button
+            type="button"
+            data-search-trigger
+            className="pointer-events-auto flex h-11 w-full cursor-pointer items-center justify-between gap-2 truncate rounded-full bg-gray-50 pl-4 pr-3 text-left text-sm font-normal leading-6 text-gray-500 shadow-none hover:text-gray-500 ring-1 ring-gray-100 hover:ring-gray-200 dark:bg-white/[0.04] dark:text-white/50 dark:hover:text-white/50 dark:ring-1 dark:ring-white/[0.08] dark:hover:ring-white/15"
+          >
+            <div className="flex min-w-0 flex-1 items-center gap-2">
+              <Icon
+                icon="search"
+                size={14}
+                className="shrink-0 text-gray-700 dark:text-gray-400"
+              />
+              <div className="min-w-0 truncate font-normal text-gray-500 hover:text-gray-500 dark:text-white/50 dark:hover:text-white/50">
+                Search for articles
+              </div>
+            </div>
+            <span className="flex-none text-xs font-semibold text-gray-500 hover:text-gray-500 dark:text-white/50 dark:hover:text-white/50">
+              ⌘K
+            </span>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          id="custom-homepage-assistant-entry"
+          data-assistant-trigger
+          aria-label="Ask AI"
+          className="group/ai flex pointer-events-auto h-11 w-full shrink-0 cursor-pointer flex-row items-center justify-center gap-1.5 rounded-full bg-gray-50 px-4 text-sm font-normal leading-6 text-gray-500 shadow-none ring-1 ring-gray-100 hover:text-gray-600 hover:ring-gray-200 dark:bg-white/[0.04] dark:text-white/50 dark:ring-1 dark:ring-white/[0.08] dark:hover:text-white/70 dark:hover:ring-white/15 sm:w-auto"
+        >
+          <Icon
+            icon="sparkles"
+            size={16}
+            className="shrink-0 text-gray-700 group-hover/ai:text-gray-800 dark:text-gray-400 dark:group-hover/ai:text-gray-200"
+          />
+          <span className="whitespace-nowrap text-gray-500 dark:text-white/50">Ask AI</span>
+        </button>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <span>Popular searches</span>
+        <div className="flex flex-wrap justify-center gap-1">
+          {['contracts', 'invoices', 'API'].map((term) => (
+            <button
+              key={term}
+              type="button"
+              data-popular-search
+              data-term={term}
+              className="rounded-md bg-gray-100 px-1.5 py-1 font-mono text-xs font-bold uppercase tracking-tight text-gray-600 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-300 dark:hover:bg-white/15"
+            >
+              {term.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium text-gray-900 dark:text-gray-50">Featured guides</h3>
+    <Columns cols={3}>
+      <Card
+        horizontal
+        icon="rocket"
+        iconType="light"
+        title="Get Started"
+        href="/introduction"
+      >
+        Account setup, first login, and platform overview
+      </Card>
+      <Card horizontal icon="book-open" iconType="light" title="Guides" href="/guides/sales-workflow">
+        Sales workflow, ad delivery, reporting, and automation
+      </Card>
+      <Card horizontal icon="code-xml" iconType="light" title="API Reference" href="/api/authentication">
+        Authentication, endpoints, and integration examples
+      </Card>
+    </Columns>
+  </div>
+
+  ---
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium text-gray-900 dark:text-gray-50">All guides</h3>
+    <Columns cols={3}>
+    <Card
+      title="Advertisers & Contacts"
+      icon="users"
+      iconType="light"
+      href="/concepts/advertisers-contacts"
+      cta="Learn more"
+    >
+      Manage advertisers, agencies, and contact records
+    </Card>
+    <Card
+      title="Contracts & Proposals"
+      icon="file-text"
+      iconType="light"
+      href="/concepts/contracts-proposals"
+      cta="Learn more"
+    >
+      Create, send, and track ad sales contracts
+    </Card>
+    <Card
+      title="Invoices & Payments"
+      icon="credit-card"
+      iconType="light"
+      href="/concepts/invoices-payments"
+      cta="Learn more"
+    >
+      Automated invoicing, payment tracking, and QuickBooks sync
+    </Card>
+    <Card
+      title="Ad Delivery"
+      icon="send"
+      iconType="light"
+      href="/guides/ad-delivery"
+      cta="Learn more"
+    >
+      Manage insertions, proofs, and production workflows
+    </Card>
+    <Card
+      title="Integrations"
+      icon="plug"
+      iconType="light"
+      href="/integrations/overview"
+      cta="Learn more"
+    >
+      Connect QuickBooks, Zapier, DocuSign, HubSpot, and more
+    </Card>
+    <Card
+      title="REST API"
+      icon="brackets"
+      iconType="light"
+      href="/api/authentication"
+      cta="View reference"
+    >
+      Full REST API for advertisers, contracts, invoices, and payments
+    </Card>
+    </Columns>
+  </div>
+
+  ---
+
+  <div className="flex flex-col gap-2">
+    <h3 className="text-base font-medium text-gray-900 dark:text-gray-50">Suggested articles</h3>
+    <p className="text-base text-gray-600 dark:text-gray-400">
+      Popular starting points from the MediaOS Help Center
+    </p>
+  </div>
+
+  <Columns cols={2} className="suggested-articles">
+    <Card
+      title="Quickstart: set up MediaOS in minutes"
+      icon="timer"
+      iconType="light"
+      href="/quickstart"
+      cta="Read article"
+    >
+      A fast path from first login to your first contract: advertisers, products, and proposals.
+    </Card>
+    <Card
+      title="Authenticate with the MediaOS API"
+      icon="key"
+      iconType="light"
+      href="/api/authentication"
+      cta="Read article"
+    >
+      Learn how to generate API credentials and authenticate every request.
+    </Card>
+    <Card
+      title="Connect QuickBooks to MediaOS"
+      icon="receipt"
+      iconType="light"
+      href="/integrations/quickbooks"
+      cta="Read article"
+    >
+      Sync invoices and payments between MediaOS and QuickBooks Online or Desktop.
+    </Card>
+    <Card
+      title="Automate tasks with Zapier"
+      icon="zap"
+      iconType="light"
+      href="/integrations/zapier"
+      cta="Read article"
+    >
+      Trigger actions in MediaOS from hundreds of apps using the Zapier integration.
+    </Card>
+  </Columns>
+</div>

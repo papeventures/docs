@@ -1,0 +1,108 @@
+---
+title: "Account Settings and Branding in MediaOS"
+description: "Configure your MediaOS account name, logo, invoice templates, email settings, currency, tax rates, contract terms, and payment processing accounts."
+---
+
+Account Settings is where you control how MediaOS represents your organization — from the name and logo that appear on client-facing documents to the payment processors your team uses to collect revenue. Only users with the **Administrator** role can access and modify account settings. Navigate to **Settings** from the main menu to reach the configuration options described on this page.
+
+## Account name and contact information
+
+Your account name, address, and phone number appear on invoices, proposals, and contracts sent to advertisers. To update this information:
+
+1. Go to **Settings > General Settings**.
+2. Find the **Company Name**, **Address**, and **Phone** fields.
+3. Update the values and save. Changes take effect on all new documents immediately. Previously generated PDFs are not retroactively updated.
+
+## Logo and branding
+
+Your logo is displayed in the header of invoices, proposals, contracts, and the advertiser-facing portal.
+
+To upload or replace your logo:
+
+1. Go to **Settings > Templates**.
+2. Open your invoice or contract template.
+3. Click the logo area and use the file picker to upload a new image. Supported formats are PNG and JPG. For best results, use a PNG with a transparent background at a minimum width of 400 pixels.
+
+<Tip>
+  Consistent branding across your documents creates a more professional impression. Make sure your logo file is high resolution enough to look sharp when printed.
+</Tip>
+
+## Invoice template customization
+
+MediaOS allows you to customize the appearance of invoices and contracts using the template editor. Go to **Settings > Templates** (available on the Plus plan and above) to:
+
+- Choose a template layout
+- Set header and footer content
+- Adjust color accents to match your brand
+- Add a custom message or thank-you note that appears at the bottom of each invoice
+- Toggle which fields are visible (e.g., hide internal notes from the client-facing PDF)
+
+Changes to templates affect all future documents generated from that template. You can maintain multiple templates and assign them to different publications or advertiser segments.
+
+## Email settings
+
+### From address and display name
+
+MediaOS sends emails (invoices, proposals, reminders) on behalf of your organization. To configure the sender identity:
+
+1. Go to **Settings > General Settings**.
+2. Set your preferred **From Name** and **Reply-To** email address.
+
+### DKIM email authentication
+
+DKIM (DomainKeys Identified Mail) tells receiving mail servers that emails sent by MediaOS on your behalf are authorized by your domain. Setting up DKIM significantly reduces the chance that your emails are marked as spam.
+
+To configure DKIM:
+
+1. Go to **Settings > DKIM Email Records**.
+2. MediaOS displays the DNS TXT records you need to add to your domain's DNS settings.
+3. Add the records through your domain registrar or DNS provider.
+4. Return to MediaOS and click **Verify** to confirm the records are live.
+
+<Info>
+  DNS changes can take up to 48 hours to propagate globally. If verification fails immediately after adding the records, wait a few hours and try again.
+</Info>
+
+### SendGrid relay (Premium)
+
+If you prefer to route all MediaOS emails through your own SendGrid account for better deliverability control, connect SendGrid under **Settings > Integrations > SendGrid**. This requires a Premium plan.
+
+## Currency settings
+
+By default, MediaOS operates in USD. If you serve advertisers in multiple currencies or operate in a non-USD market, you can configure currency settings under **Settings > Currency** (Premium plan).
+
+Options include:
+
+- Setting your base/local currency
+- Enabling multi-currency functionality so invoices can be issued in the advertiser's local currency
+- Exchange rate management
+
+## Tax rates
+
+If you collect sales tax on advertising, define your tax rates under **Settings > Tax Rates**. You can create multiple rates (for example, different rates for print vs. digital) and assign them to individual products or apply them at the invoice level.
+
+<Note>
+  When QuickBooks is connected, MediaOS defers to QuickBooks for tax code management and hides the Tax Rates settings page. Manage tax codes in QuickBooks and map them to MediaOS rates through the QuickBooks integration settings instead.
+</Note>
+
+## Contract terms
+
+Contract terms are the boilerplate legal language that appears at the bottom of proposals and contracts. These typically cover payment terms, cancellation policies, refund rules, and deadline policies.
+
+To edit your contract terms:
+
+1. Go to **Settings > Contract Terms**.
+2. Enter or paste your terms and conditions in the editor.
+3. Save. The updated terms appear on all newly generated proposals and contracts.
+
+You can create multiple term sets and assign different terms to different publications if your cancellation or payment policies vary by product line.
+
+## Payment accounts
+
+MediaOS integrates with payment processors so your team can collect credit card payments directly from invoices. Supported processors are:
+
+- **Stripe** — Available on the Starter plan. Configure your Stripe secret key and publishable key under **Settings > Integrations > Stripe**.
+- **Authorize.Net** — Available on the Standard plan. Enter your API Login ID and Transaction Key under **Settings > Integrations > Authorize.Net**.
+- **Manual / check** — MediaOS also supports manual payment recording for checks, ACH transfers, or any other offline payment method. No additional configuration is required.
+
+If your account has **GL Account Codes** enabled (a Premium accounting feature), you can also configure **Payment Accounts** under **Settings > Payment Accounts** to track which bank account or ledger each payment is deposited into.

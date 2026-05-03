@@ -1,0 +1,120 @@
+{
+  "projectType": "saas",
+  "projectName": "MediaOS",
+  "projectDescription": "MediaOS is an all-in-one ad sales and management platform that helps media companies sell advertising, manage contracts, track deliveries, and automate billing.",
+  "theme": "maple",
+  "primaryColor": "#ee6610",
+  "lightColor": "#e9c444",
+  "darkColor": "#1c2434",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "account-setup"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/advertisers-contacts",
+              "concepts/products-inventory",
+              "concepts/contracts-proposals",
+              "concepts/invoices-payments"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/sales-workflow",
+              "guides/ad-delivery",
+              "guides/reporting",
+              "guides/automation",
+              "guides/marketing-campaigns"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/quickbooks",
+              "integrations/zapier",
+              "integrations/docusign",
+              "integrations/hubspot"
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "settings/account",
+              "settings/users-permissions",
+              "settings/pipelines-workflows"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api/authentication",
+              "api/pagination"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/advertisers",
+              "api/contacts",
+              "api/contracts",
+              "api/invoices",
+              "api/payments",
+              "api/products",
+              "api/ads"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Ad sales CRM with advertiser and contact management",
+    "Contract and proposal creation with e-signature via DocuSign",
+    "Automated invoicing and payment tracking",
+    "Ad delivery management with proofing and production workflows",
+    "Customizable sales pipelines and deal tracking",
+    "Revenue reporting and sales forecasting",
+    "Marketing campaign management",
+    "Automation workflows for routine tasks",
+    "QuickBooks integration for accounting sync",
+    "Zapier integration for workflow automation",
+    "REST API for programmatic data access",
+    "Customizable dashboards with real-time widgets"
+  ],
+  "publicApiSurface": [
+    "GET /advertisers/ — Search and list advertisers",
+    "GET /advertisers/{id} — Get a single advertiser",
+    "GET /contacts/ — Search and list contacts",
+    "GET /contacts/{id} — Get a single contact",
+    "GET /contracts/ — Search and list contracts",
+    "GET /contracts/{id} — Get a single contract",
+    "GET /invoices/ — Search and list invoices",
+    "GET /invoices/{id} — Get a single invoice",
+    "GET /payments/ — Search and list payments",
+    "GET /payments/{id} — Get a single payment",
+    "GET /products/ — List products",
+    "GET /adSizes/ — List ad sizes for a product",
+    "GET /adRates/ — List ad rates for a product",
+    "GET /issues/ — List publication issues",
+    "GET /ads/{id} — Get a single ad",
+    "GET /users/ — List users",
+    "GET /agencies/ — List agencies"
+  ]
+}

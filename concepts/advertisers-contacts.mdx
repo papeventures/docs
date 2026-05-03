@@ -1,0 +1,124 @@
+---
+title: "Advertisers, Agencies, and Contacts in MediaOS"
+description: "Learn how MediaOS structures your CRM: advertiser accounts, agency relationships, contact records, and the data fields that connect them."
+---
+
+MediaOS organizes every buyer in your ad sales workflow around three record types: advertisers, agencies, and contacts. Understanding how these records relate to one another helps you keep your CRM clean, route deals correctly, and give your sales team the right context at a glance.
+
+## Advertisers
+
+An advertiser is the top-level CRM record in MediaOS. It represents the company or organization that buys advertising from you — a local restaurant, a regional retailer, a national brand. Every contract, invoice, and line item in the system ultimately belongs to an advertiser.
+
+When you create a new advertiser, MediaOS assigns it a unique ID. You can set an owner so that one sales rep is accountable for the account, and you can record a description and a GL account code for accounting purposes.
+
+<Info>
+  Each advertiser name must be unique across your MediaOS account. If you try to create a second record with the same name, the system returns a `400` error.
+</Info>
+
+### Leads vs. active advertisers
+
+Every advertiser record carries an `is_lead` flag. When `is_lead` is `true`, the account is a prospect — it appears in your leads pipeline and certain features, such as the unpaid invoices portal link and ad insertion views, are hidden until the account is converted.
+
+When `is_lead` is `false`, the account is active and the full set of contract, invoicing, and delivery features becomes available.
+
+<Tabs>
+  <Tab title="Lead">
+    - Appears in the leads pipeline
+    - Cannot have outstanding invoices or ad insertions
+    - Portal links for missing artwork and unpaid invoices are hidden
+    - Use for prospects you are actively pursuing
+  </Tab>
+  <Tab title="Active advertiser">
+    - Full access to contracts, invoices, line items, and delivery
+    - Appears on the accounts list and in sales reporting
+    - Can be assigned payment accounts for autopay
+    - Use once the account has signed or is ready to receive a proposal
+  </Tab>
+</Tabs>
+
+### Sales lock
+
+Setting `sales_lock` to `true` on an advertiser prevents sales users from creating new contracts for that account. Admins and sales managers can still work with the record. Use this flag to protect accounts that are on hold, in collections, or reserved for a specific rep.
+
+### Fair game
+
+When the Fair Game feature is enabled, any advertiser that has no recent activity and no active sales is automatically flagged as open for prospecting. Any sales user can claim the account, at which point it is reassigned to them.
+
+---
+
+## Contacts
+
+A contact is a person associated with an advertiser or agency. Contacts store the individual-level details your team needs to reach the right person — name, title, phone numbers, email addresses, and mailing addresses.
+
+Each advertiser and agency can have multiple contacts. One contact can be designated the primary contact for an account. When you send an invoice or a proposal, MediaOS uses the contact's billing email address to pre-populate the recipient field.
+
+### Contact data fields
+
+MediaOS stores every phone number, email address, and mailing address as a **contact data** record linked to either the advertiser, the agency, or a specific contact. This approach lets you designate primary values at the account level — for example, a main billing phone number — while still tracking multiple numbers for individual contacts.
+
+You can also add **custom fields** to advertiser and agency records using the Smart Fields system. Custom fields support text, numbers, dates, dropdowns, and checkboxes, and they are searchable and filterable from the accounts list.
+
+<Note>
+  Custom fields on advertisers and agencies are managed in **Settings → Custom Fields**. Changes apply to all records of that type immediately.
+</Note>
+
+---
+
+## Agencies
+
+An agency is an intermediary that buys advertising on behalf of one or more advertisers. In MediaOS, an agency is its own top-level record with its own name, contacts, custom fields, and activity feed — separate from the advertisers it represents.
+
+The relationship between agencies and advertisers is many-to-many: one agency can represent many advertisers, and one advertiser can work with multiple agencies. You link an agency to an advertiser from either the advertiser's **Agencies** panel or the agency's **Represented Advertisers** tab.
+
+When an agency is linked to a contract or an invoice, MediaOS can address billing communications to the agency rather than the advertiser directly.
+
+<CardGroup cols={2}>
+  <Card title="Agency record" icon="briefcase">
+    Holds the agency's name, primary contacts, custom fields, and activity log. Contracts and invoices can be billed to the agency.
+  </Card>
+  <Card title="Advertiser record" icon="building-2">
+    The ultimate buyer. Linked to one or more agencies. Owns all contracts, line items, and invoices regardless of which agency facilitated the sale.
+  </Card>
+</CardGroup>
+
+---
+
+## Account groups
+
+MediaOS supports grouping advertisers into **account groups** (also called advertiser groups). Groups let you organize accounts by territory, vertical, account tier, or any other classification that fits your business. You can filter the accounts list and run reports by group.
+
+Groups are managed from **Settings → Account Groups** and assigned to individual advertiser records. An advertiser can belong to one group at a time.
+
+---
+
+## How records relate
+
+The diagram below summarizes the key relationships:
+
+- An **advertiser** owns contracts, invoices, line items, and payments.
+- An **agency** can be linked to an advertiser and referenced on contracts and invoices.
+- **Contacts** belong to an advertiser or agency and store communication data.
+- **Custom fields** extend advertiser and agency records with your own data.
+
+<Note>
+  When you delete an advertiser, all associated contracts, invoices, and contact records are also removed. This action is irreversible. Archive or deactivate the record instead if you need to retain history.
+</Note>
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Contracts and proposals" icon="file-text" href="/concepts/contracts-proposals">
+    Learn how contracts tie back to advertiser records and drive the sales workflow.
+  </Card>
+  <Card title="Invoices and payments" icon="credit-card" href="/concepts/invoices-payments">
+    See how invoices are generated from contracts and billed to advertisers or agencies.
+  </Card>
+  <Card title="Advertisers API" icon="code" href="/api/advertisers">
+    Create, update, and query advertiser records programmatically.
+  </Card>
+  <Card title="Contacts API" icon="code" href="/api/contacts">
+    Manage contact records and contact data via the REST API.
+  </Card>
+</CardGroup>

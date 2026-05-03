@@ -1,0 +1,145 @@
+---
+title: "Managing Ad Delivery and Production in MediaOS"
+description: "Track insertion orders, manage creative proofs, coordinate print and digital production, and log ad delivery — all in one place in MediaOS."
+---
+
+Once a contract is signed and marked as sold, the focus shifts from selling to delivering. MediaOS connects your sales contracts directly to a production workflow that tracks every ad from insertion order through final delivery. The delivery module handles print layout planning, creative collection, proof approvals, digital ad serving, social media, and a complete delivery log — so nothing slips through the cracks between your sales and production teams.
+
+## Delivery workflow overview
+
+The lifecycle of an ad insertion moves through four main stages:
+
+1. **Line item created** — when a contract is marked as sold, each insertion becomes a visible line item in the delivery queue
+2. **Creative collected** — you request or receive the advertiser's artwork and upload it to the insertion record
+3. **Proof approved** — you send a proof to the advertiser for review; they approve or request revisions
+4. **Ad delivered** — the finished ad is placed in the publication, sent to the ad server, or published on the appropriate channel, and delivery is logged
+
+<Info>
+  The exact steps that apply to a given insertion depend on the product type. Print insertions use the flat plan and InDesign integration. Digital insertions route through the ad server or website delivery tools. Social insertions go through the social delivery workflow.
+</Info>
+
+## Managing insertion orders
+
+Insertion orders live on the **Run Sheet** (accessible via **Sales → Run Sheet** or **Delivery**). Each row represents a single ad insertion linked to a specific contract, advertiser, product, issue or run date, ad size, placement, and rate.
+
+From an insertion record you can:
+
+- Update the insertion status (using your configured pipeline statuses)
+- Assign the insertion to a production team member
+- Add or view the associated ad creative
+- Access the proof, creative brief, and delivery log for that insertion
+- Add insertion-level fees, discounts, or notes
+
+<Tip>
+  Use the insertion status pipeline to track where each ad is in production — for example: Artwork Needed → Proof Sent → Approved → Production Ready → Delivered.
+</Tip>
+
+## Requesting creative from advertisers (creative briefs)
+
+MediaOS includes a **Creative Brief** feature, accessible from any advertiser account record. The creative brief acts as a branding guide that captures:
+
+- The advertiser's logo and maximum print size
+- Primary brand colors (with a built-in color picker tool that samples colors from the advertiser's website)
+- Brand attributes and mission statement
+- Advertising objectives and value proposition
+- Ideal customer profile
+- Uploaded brand asset files (logos, images, PDFs)
+
+When you need artwork for an upcoming insertion, you can share the creative brief link with the advertiser or with an external designer. The brief ensures that anyone producing the ad has the brand standards they need.
+
+For automated artwork collection, see [Automation → Delivery rules](/guides/automation), which lets you schedule bulk artwork reminder emails on a set schedule.
+
+## Uploading and approving ad proofs
+
+Proofs are managed through the **Proofs** section, accessible from an insertion record or from the flat plan.
+
+**Creating a proof**
+
+From the insertion or the flat plan, create a new proof record. Each proof can contain multiple option groups (for example, "Option A" and "Option B"), and each option group can contain one or more image or PDF files. You can drag and drop files within a group to set their display order.
+
+**Uploading proof files**
+
+Click the upload area within an option group to open the file picker. MediaOS accepts images and PDFs up to 80 MB per file. Multi-page PDF ads are supported — the system displays each page in sequence.
+
+**Finalizing and sending to the advertiser**
+
+When you are done uploading, click the close button. MediaOS will ask whether you want to **finalize** the proof, which triggers any configured workflow automations — such as sending the proof to the advertiser by email and creating a follow-up task for the sales rep.
+
+If you select **No** (not yet finalized), you can return later to continue working on the proof without re-triggering notifications.
+
+<Note>
+  Studio users (MediaOS Studio design service) have a separate upload flow. When a Studio user clicks "Send to client," it finalizes the proof and routes it to the advertiser.
+</Note>
+
+## Flat plan — layout planning for print
+
+The **Flat Plan** is a visual page-layout tool for print publications. Access it from **Delivery → Flat Plan** and select a product and issue.
+
+The flat plan displays each page of the issue as a visual thumbnail. From the sidebar you can:
+
+- View all sold insertions for the issue, filtered by section, ad size, or placement
+- Assign an ad creative to an insertion using the ad selector
+- Drag an insertion onto the page to place it visually
+- Draw placeholder boxes on pages for reserved but unassigned positions
+- Place editorial content alongside ads
+- Track page-level statuses and assign pages to production team members
+
+**Navigating the flat plan**
+
+- Click a page to open its detail panel, where you can set the page status, add notes, assign a team member, and manage section and insert flags
+- Hold **Shift** and click to select multiple pages at once for bulk operations (cutting and pasting pages, sending to Studio)
+- Use the zoom controls in the toolbar to adjust how many spreads appear per row
+- Toggle display layers — ads, content, placeholders, PDF composites — using the toolbar buttons
+
+**Copying from a previous issue**
+
+If your page structure is consistent between issues, use **Copy From Issue** to duplicate the layout from a prior issue as a starting point.
+
+**Printing the flat plan**
+
+Click the print icon in the toolbar to generate a PDF version of the flat plan for distribution to your production team.
+
+## InDesign integration
+
+MediaOS includes an **Adobe InDesign plug-in** that connects your layout work directly to your MediaOS insertion data. To install it, open the flat plan and go to the **Info** tab in the sidebar, then click **Install Plug-in**.
+
+The InDesign plug-in allows designers to:
+
+- See insertion data (advertiser name, ad size, placement) directly inside InDesign
+- Pull approved ad files from MediaOS into the layout without manual file transfers
+- Update insertion statuses from within InDesign as pages are completed
+
+## Ad server and website delivery
+
+For digital ad products, MediaOS connects to your ad server to manage impressions, scheduling, and delivery reporting. From an insertion record for a digital product you can:
+
+- Set targeting parameters and flight dates
+- Link the insertion to an ad server campaign or line item
+- Pull delivery statistics (impressions served, clicks) back into MediaOS for reporting
+
+Website banner and display ad delivery is managed through **Delivery → Website**, where you can assign ad creative to specific zones and track performance.
+
+## Social media delivery
+
+Social ad insertions are tracked through **Delivery → Social**. You can record the platform (Facebook, Instagram, LinkedIn, etc.), the campaign ID, flight dates, and upload the creative. Social delivery records are linked back to the originating insertion so that all revenue and delivery data stays connected in your reporting.
+
+## Delivery log
+
+The **Delivery Log** is a chronological record of all quantities delivered for a given insertion. It is most commonly used for products billed by delivered quantity — such as email broadcasts, direct mail pieces, or digital impressions.
+
+From the delivery log on an insertion record you can:
+
+- Add a manual delivery entry with date, quantity, and description
+- Import delivery records in bulk via CSV upload
+- View the linked invoice number for each delivery entry
+- Delete entries that have not yet been invoiced (admin and accounting users only)
+
+<Warning>
+  Delivery log entries that are linked to an invoice cannot be deleted. If a correction is needed after invoicing, contact your accounting team to void or adjust the invoice first.
+</Warning>
+
+## Related pages
+
+- [Running your ad sales workflow](/guides/sales-workflow)
+- [Reports and analytics](/guides/reporting)
+- [Automating tasks and workflows](/guides/automation)

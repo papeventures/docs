@@ -1,0 +1,136 @@
+---
+title: "Products, Ad Sizes, and Inventory in MediaOS"
+description: "Understand how MediaOS models products, ad sizes, rates, issues, and placements to define what you sell and track what's available."
+---
+
+Everything you sell in MediaOS — a print half-page, a banner on your website, a booth at an expo — is represented as a product. Products define the structure of your inventory: what sizes are available, what they cost, when they run, and where they appear. Understanding the product model helps you set up your catalog correctly and gives your sales team accurate availability information at the point of sale.
+
+## Products
+
+A product in MediaOS corresponds to a publication, website section, digital placement, event, or any other ad-carrying medium you offer. Each product has a name, a product type, and an active/inactive status.
+
+Products are organized by **product type**, which determines the features available for that product. Product types are permanent once assigned — you cannot change a product's type after creation. Choose the right type carefully:
+
+<Tabs>
+  <Tab title="Issue-based (print)">
+    Used for magazines, newspapers, and other publications with discrete publication dates. Supports issues, page dimensions, ad sizes with physical dimensions, and pre-flight profiles. Each issue can carry its own audience count.
+  </Tab>
+  <Tab title="Digital / time-based">
+    Used for website banners, email newsletters, and other placements that run for a date range rather than a specific issue. Supports time-based inventory and digital ad sizes measured in pixels.
+  </Tab>
+  <Tab title="Event / expo">
+    Used for sponsorships, booths, and event advertising. Supports a single event date and, for booth-style products, a floor plan with named locations.
+  </Tab>
+</Tabs>
+
+<Warning>
+  Product types cannot be edited or reassigned after a product has been created and saved. All products of that type inherit the type's feature set permanently.
+</Warning>
+
+Each product can be configured with:
+
+- **Allow multiple ads per sold item** — useful for digital products where the same line item may deliver more than one creative.
+- **Allow auto-renewals** — lets sales users create line items that automatically renew each issue or period.
+- **Enable for Checkout** — makes the product available in the self-serve checkout portal.
+- **QuickBooks item, class, and tax code** — controls how revenue from this product maps to your QuickBooks chart of accounts.
+- **General ledger account and item codes** — for non-QuickBooks accounting integrations.
+
+---
+
+## Ad sizes
+
+Ad sizes define the individual units you sell within a product. For a print publication, an ad size might be "Full Page," "Half Page Horizontal," or "Business Card." For a website, it might be "Leaderboard 728×90" or "Rectangle 300×250."
+
+Each ad size belongs to a single product and carries:
+
+- **Name** — displayed on contracts and invoices.
+- **Dimensions** — width and height in inches (print) or pixels (digital).
+- **Active/inactive status** — inactive sizes are hidden from the contract editor but retained for historical records.
+
+You manage ad sizes from **Settings → Products**. You can add sizes individually or use the grid add view to create multiple sizes at once. Sizes can be archived to remove them from the sales interface without deleting them.
+
+<Tip>
+  Keep ad size names consistent with your rate card. Sales reps see these names when building proposals, so clear names reduce errors and back-and-forth with advertisers.
+</Tip>
+
+---
+
+## Ad rates
+
+Ad rates set the price for each ad size, optionally broken out by issue or date range. A rate record links a product, an ad size, and a dollar amount. MediaOS supports multiple rate schedules over time, so you can have a current rate and past rates that apply to historical contracts.
+
+When a sales rep adds a line item to a contract, MediaOS pre-populates the rate based on the product and ad size selected. Reps with the appropriate permissions can override the rate on a per-line-item basis.
+
+Rates are managed from the product management page under **Manage Units & Rates**.
+
+<Info>
+  The API exposes both current rates (`active=true`) and past rates (`active=false`) for a given product and ad size combination. Use `GET /adRates/?product_id={id}` to retrieve rates, optionally filtered by `ad_size_id`.
+</Info>
+
+---
+
+## Issues
+
+Issues represent the individual publication dates for an issue-based product. Each issue carries:
+
+- **Publication date** — the date the issue is published or distributed.
+- **Space close date** — the deadline for booking ad space.
+- **Materials due date** — the deadline for submitting ad creative.
+- **Audience count** — the number of readers for that specific issue (overrides the product-level default).
+
+When a sales rep sells a print ad, they select the product and then choose one or more issues from the issue list. Inventory availability is tracked at the issue level.
+
+You can create issues one at a time, copy issues from a prior year, or bulk-generate a full year's schedule from **Settings → Products → Issues**.
+
+---
+
+## Placements and locations
+
+**Placements** are named positions within a product — for example, "Back Cover," "Inside Front Cover," or "Page 3." Assigning a placement to a line item communicates to production exactly where an ad should appear.
+
+**Locations** are a more structured form of placement used with location-based products. Each location belongs to a product and can be associated with a floor plan node. Locations support availability tracking independently from ad size inventory.
+
+Both placements and locations are optional. Not every product needs them, but they are useful when specific positions carry a premium or when production needs precise placement instructions.
+
+---
+
+## Inventory and availability
+
+MediaOS tracks inventory at the intersection of product, ad size, and issue (or time period). The inventory view gives you a real-time picture of how much space has been sold versus how much remains available.
+
+There are three inventory modes:
+
+<CardGroup cols={3}>
+  <Card title="Issue inventory" icon="calendar">
+    Shows sold and available units by issue date for print products. Useful for managing space close deadlines.
+  </Card>
+  <Card title="Time inventory" icon="clock">
+    Shows booked digital placements by month for time-based products. Filters by product and ad size.
+  </Card>
+  <Card title="Expo / floor plan" icon="map">
+    Visualizes booth and location availability on a floor plan diagram for event-based products.
+  </Card>
+</CardGroup>
+
+When a rep adds a line item on a contract, MediaOS checks availability in real time. If a unit is already sold or reserved, the system flags the conflict so the rep can choose an alternative.
+
+---
+
+## Floor plans
+
+Floor plans provide a visual layout of locations for event and expo products. You upload or draw a floor plan image in **Settings → Products → Floor Plan**, then define named nodes on the image corresponding to booths, tables, or other locations.
+
+When a floor plan location is sold on a contract, it is marked as unavailable on the floor plan viewer. Sales reps can access the floor plan view from the inventory screen to see which locations are open.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Contracts and proposals" icon="file-text" href="/concepts/contracts-proposals">
+    See how products and ad sizes appear as line items on contracts.
+  </Card>
+  <Card title="Products API" icon="code" href="/api/products">
+    Query products, ad sizes, rates, issues, and locations via the REST API.
+  </Card>
+</CardGroup>

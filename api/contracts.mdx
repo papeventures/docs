@@ -1,0 +1,376 @@
+---
+title: "REST API endpoints for contracts"
+description: "Search, filter, and retrieve ad sales contract records via the MediaOS REST API. Filter by advertiser, date range, amount, status, and more."
+---
+
+The contracts endpoints let you list and retrieve ad sales contracts in your MediaOS account. A contract represents an agreement to purchase advertising and can contain multiple ad insertions and line items. Records with `is_proposal: true` are proposals that have not yet been countersigned into active contracts.
+
+The contracts file also exposes endpoints for contract line items, contract line item types, and insertions — all documented on this page.
+
+All list requests support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.
+
+---
+
+## List contracts
+
+```
+GET /contracts/
+```
+
+Returns a paginated list of contract records matching the supplied filters.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the contract with this exact ID.
+</ParamField>
+
+<ParamField query="advertiser_id" type="integer">
+  Return only contracts belonging to the advertiser with this ID.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter by contract status string (for example, `Active`, `Cancelled`).
+</ParamField>
+
+<ParamField query="is_proposal" type="boolean">
+  When `true`, return only proposals. When `false`, return only countersigned contracts.
+</ParamField>
+
+<ParamField query="amount_from" type="number">
+  Return contracts with a total amount greater than or equal to this value.
+</ParamField>
+
+<ParamField query="amount_to" type="number">
+  Return contracts with a total amount less than or equal to this value.
+</ParamField>
+
+<ParamField query="date_created_before" type="string">
+  Return contracts created on or before this date. Use ISO 8601 format (for example, `2024-12-31`).
+</ParamField>
+
+<ParamField query="date_created_after" type="string">
+  Return contracts created on or after this date.
+</ParamField>
+
+<ParamField query="date_sold_before" type="string">
+  Return contracts with a sold date on or before this date.
+</ParamField>
+
+<ParamField query="date_sold_after" type="string">
+  Return contracts with a sold date on or after this date.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by contract ID (default) |
+| `date_created` | Sort by creation date |
+| `date_sold` | Sort by sold date |
+| `total` | Sort by contract total amount |
+| `status` | Sort by status |
+
+Default sort order is `desc`.
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/contracts/?advertiser_id=1042&is_proposal=false&sort_by=date_sold&sort_order=desc"
+```
+
+### Example response
+
+```json
+{
+  "contracts": [
+    {
+      "id": 8801,
+      "sold_by_user": 7,
+      "date_created": "2024-01-15",
+      "date_sold": "2024-01-20",
+      "advertiser_id": 1042,
+      "status": "Active",
+      "agency_id": null,
+      "is_proposal": false,
+      "notes": "Annual print package.",
+      "insertion_order_number": "IO-2024-001",
+      "total": 12500.00,
+      "down_payment": 2500.00,
+      "terms": { "id": 2, "name": "Net 30" },
+      "billing_email": { "id": 201, "value": "billing@acme.example.com" },
+      "production_email": null,
+      "sold_to_email": { "id": 201, "value": "billing@acme.example.com" },
+      "sold_to_address": { "id": 88, "address1": "123 Main St", "city": "Springfield" },
+      "tax_rate": 5,
+      "billing_address": 88,
+      "insertions": [],
+      "line_items": [],
+      "percent_discount": 0,
+      "currency_exchange": null
+    }
+  ],
+  "count": 1
+}
+```
+
+---
+
+## Get a single contract
+
+```
+GET /contracts/{id}
+```
+
+Returns a single contract record by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the contract.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/contracts/8801
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the contract.
+</ResponseField>
+
+<ResponseField name="sold_by_user" type="integer">
+  The ID of the user who sold this contract.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  Date when the contract was created.
+</ResponseField>
+
+<ResponseField name="date_sold" type="string">
+  Date when the contract was marked as sold.
+</ResponseField>
+
+<ResponseField name="advertiser_id" type="integer">
+  The ID of the advertiser on this contract.
+</ResponseField>
+
+<ResponseField name="agency_id" type="integer">
+  The ID of the agency on this contract, if any.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The current contract status (for example, `Active`, `Cancelled`).
+</ResponseField>
+
+<ResponseField name="is_proposal" type="boolean">
+  Whether this record is a proposal rather than a finalized contract.
+</ResponseField>
+
+<ResponseField name="notes" type="string">
+  Free-text notes on the contract.
+</ResponseField>
+
+<ResponseField name="insertion_order_number" type="string">
+  The insertion order number, if assigned.
+</ResponseField>
+
+<ResponseField name="total" type="number">
+  The total monetary value of the contract.
+</ResponseField>
+
+<ResponseField name="down_payment" type="number">
+  The down payment amount required on this contract.
+</ResponseField>
+
+<ResponseField name="terms" type="object">
+  The payment terms associated with this contract.
+</ResponseField>
+
+<ResponseField name="billing_email" type="object">
+  The contact data record used for billing email.
+</ResponseField>
+
+<ResponseField name="production_email" type="object">
+  The contact data record used for production notifications.
+</ResponseField>
+
+<ResponseField name="sold_to_email" type="object">
+  The contact data record for the sold-to contact.
+</ResponseField>
+
+<ResponseField name="sold_to_address" type="object">
+  The sold-to mailing address.
+</ResponseField>
+
+<ResponseField name="tax_rate" type="integer">
+  The ID of the tax rate applied to this contract.
+</ResponseField>
+
+<ResponseField name="billing_address" type="integer">
+  The ID of the billing address for this contract.
+</ResponseField>
+
+<ResponseField name="percent_discount" type="number">
+  The percentage discount applied to the contract total.
+</ResponseField>
+
+<ResponseField name="currency_exchange" type="object">
+  Currency exchange rate information, if applicable.
+</ResponseField>
+
+<ResponseField name="insertions" type="array">
+  The ad insertions on this contract. Each insertion is an ad placement tied to a product issue.
+</ResponseField>
+
+<ResponseField name="line_items" type="array">
+  The line items on this contract (non-insertion charges and credits).
+</ResponseField>
+
+---
+
+## List contract line items
+
+```
+GET /contractLineItems/
+```
+
+Returns all line items for a specific contract.
+
+### Query parameters
+
+<ParamField query="contract_id" type="integer" required>
+  The ID of the contract whose line items you want to retrieve. This parameter is required.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/contractLineItems/?contract_id=8801"
+```
+
+---
+
+## Get a single contract line item
+
+```
+GET /contractLineItems/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the contract line item.
+</ParamField>
+
+---
+
+## List contract line item types
+
+```
+GET /contractLineItemTypes/
+```
+
+Returns all available contract line item types. No parameters required.
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/contractLineItemTypes/
+```
+
+---
+
+## Get a single contract line item type
+
+```
+GET /contractLineItemTypes/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the contract line item type.
+</ParamField>
+
+---
+
+## List insertions
+
+```
+GET /insertions/
+```
+
+Returns a paginated list of ad insertion records. An insertion is a single ad placement within a contract, tied to a product, issue, section, and location.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the insertion with this exact ID.
+</ParamField>
+
+<ParamField query="contract_id" type="integer">
+  Return only insertions belonging to this contract.
+</ParamField>
+
+<ParamField query="advertiser_id" type="integer">
+  Return only insertions for this advertiser.
+</ParamField>
+
+<ParamField query="product_id" type="integer">
+  Return only insertions for this product (publication).
+</ParamField>
+
+<ParamField query="issue_id" type="integer">
+  Return only insertions scheduled in this issue.
+</ParamField>
+
+<ParamField query="section_id" type="integer">
+  Return only insertions placed in this section.
+</ParamField>
+
+<ParamField query="location_id" type="integer">
+  Return only insertions at this location.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by insertion ID (default) |
+| `contract_id` | Sort by contract ID |
+| `product_id` | Sort by product ID |
+| `advertiser_id` | Sort by advertiser ID |
+| `section_id` | Sort by section ID |
+| `issue_id` | Sort by issue ID |
+| `location_id` | Sort by location ID |
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/insertions/?contract_id=8801"
+```
+
+---
+
+## Get a single insertion
+
+```
+GET /insertions/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the insertion.
+</ParamField>

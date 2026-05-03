@@ -1,0 +1,141 @@
+---
+title: "Contracts and Proposals: The MediaOS Sales Record"
+description: "Learn how MediaOS handles the full contract lifecycle—from a draft proposal through e-signature, fulfillment, amendments, and cancellations."
+---
+
+In MediaOS, every ad sale lives on a contract. A contract ties together an advertiser, a set of line items, pricing, flight dates, and the legal record of the sale. Before a contract is signed it is a proposal; after signature it becomes the binding record that drives invoicing and ad delivery. Understanding the contract model gives you a clear picture of how MediaOS tracks your sales from first pitch to final publication.
+
+## Proposals vs. signed contracts
+
+A record in MediaOS is either a proposal or a signed contract, controlled by the `is_proposal` flag.
+
+| State | `is_proposal` | What it means |
+|---|---|---|
+| Proposal | `true` | A draft sent to the advertiser for review. Can be edited freely. Does not generate invoices. |
+| Contract | `false` | A confirmed sale. Locked for editing. Triggers invoice generation based on payment plan rules. |
+
+When a rep creates a new record, it starts as a proposal. Once the advertiser approves — either by replying, signing via DocuSign, or by the rep manually marking it as sold — the record is converted to a contract.
+
+<Tip>
+  You can still amend a signed contract. MediaOS tracks amendments as a separate workflow to preserve the original signed record while accommodating changes the advertiser has agreed to.
+</Tip>
+
+---
+
+## Contract status
+
+Every contract record carries a `contractStatus` field that reflects where it is in the sales process. Common statuses include:
+
+<Tabs>
+  <Tab title="Proposal statuses">
+    - **Proposal sent** — the proposal has been delivered to the advertiser.
+    - **Proposal viewed** — the advertiser has opened the proposal portal.
+    - **Pending approval** — the advertiser is reviewing, and a decision is expected.
+  </Tab>
+  <Tab title="Active contract statuses">
+    - **Sold** — the contract is signed and active. Invoicing and delivery proceed normally.
+    - **Running** — line items are currently in flight.
+    - **Completed** — all line items have run and the contract is fulfilled.
+  </Tab>
+  <Tab title="Closed statuses">
+    - **Cancelled** — the contract was cancelled before or during fulfillment. See cancellation rules below.
+    - **Lost** — the proposal was not accepted. Used for pipeline reporting.
+  </Tab>
+</Tabs>
+
+You can filter the contracts list by status, and you can query the API using the `status` parameter on `GET /contracts/`.
+
+---
+
+## Line items
+
+A contract is made up of one or more line items. Each line item specifies:
+
+- **Product** — the publication, website, or other medium.
+- **Ad size** — the unit being purchased.
+- **Issue or date range** — when the ad runs.
+- **Section and location** — optional placement details for production.
+- **Rate** — the price for this unit.
+- **Quantity** — how many units are being purchased.
+
+Each insertion is accessible via the API at `GET /insertions/`. You can filter insertions by `contract_id`, `advertiser_id`, `product_id`, `issue_id`, `section_id`, and `location_id`.
+
+<Info>
+  In the API, insertions and contract line items are related but distinct. An insertion is the scheduled run of an ad (a specific product, issue, and size), while a contract line item can represent a charge type that does not correspond directly to a single insertion — for example, a design fee or a rush charge.
+</Info>
+
+### Bonus items
+
+Some line items are marked as bonus or value-added. These appear on the contract and drive ad delivery but are billed at $0. Use bonus items to fulfill added-value commitments — extra digital impressions, a free listing, or a complimentary issue — without affecting the contract total.
+
+---
+
+## Contract templates
+
+You can create reusable contract templates in MediaOS to speed up proposal creation. A template pre-fills products, ad sizes, rates, terms, and boilerplate language so reps can generate a professional proposal in minutes. Templates are useful for standard packages — annual print schedules, digital bundles, or event sponsorships.
+
+Templates are managed from **Settings → Templates**.
+
+---
+
+## E-signature via DocuSign
+
+MediaOS integrates with DocuSign to send proposals for electronic signature. When you trigger the DocuSign workflow from a proposal, MediaOS generates a PDF of the contract and sends it to the advertiser's primary email address via DocuSign.
+
+When the advertiser signs, DocuSign notifies MediaOS and the record is automatically converted from a proposal to a signed contract (`is_proposal` becomes `false`). The signed PDF is stored and accessible from the contract record.
+
+<Note>
+  DocuSign must be connected in **Settings → Integrations** before you can use e-signature. See the [DocuSign integration guide](/integrations/docusign) for setup steps.
+</Note>
+
+---
+
+## Cancellations and amendments
+
+### Cancellations
+
+Cancelling a contract removes it from the active sales pipeline and halts any future invoicing. MediaOS tracks the cancellation date and reason. Partially fulfilled contracts — where some issues have already run — can be cancelled going forward; line items that have already run remain on the record for billing purposes.
+
+### Amendments
+
+An amendment modifies the terms of a signed contract — adding issues, changing ad sizes, adjusting rates, or removing a placement. MediaOS preserves the original contract and records the change as an amendment with its own date and audit trail. Amended contracts can be re-sent for signature via DocuSign if your workflow requires it.
+
+<Warning>
+  Cancelling a contract that already has paid invoices does not automatically issue refunds or credit memos. You must create credit memos manually to offset the outstanding balance. See [Invoices and payments](/concepts/invoices-payments) for details.
+</Warning>
+
+---
+
+## Sorting and filtering contracts
+
+The `GET /contracts/` endpoint supports the following filter parameters:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `advertiser_id` | integer | Filter by advertiser |
+| `is_proposal` | boolean | `true` for proposals, `false` for signed contracts |
+| `status` | string | Filter by `contractStatus` value |
+| `amount_from` / `amount_to` | decimal | Filter by contract total range |
+| `date_created_after` / `date_created_before` | date | Filter by creation date |
+| `date_sold_after` / `date_sold_before` | date | Filter by sold date |
+
+Results are sortable by `id`, `date_created`, `date_sold`, `total`, and `status`.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Advertisers and contacts" icon="users" href="/concepts/advertisers-contacts">
+    Every contract belongs to an advertiser record. Learn how the CRM is structured.
+  </Card>
+  <Card title="Invoices and payments" icon="credit-card" href="/concepts/invoices-payments">
+    Signed contracts drive invoice generation. See how billing works.
+  </Card>
+  <Card title="Contracts API" icon="code" href="/api/contracts">
+    Create, query, and manage contracts and line items via the REST API.
+  </Card>
+  <Card title="DocuSign integration" icon="pen-line" href="/integrations/docusign">
+    Set up e-signature to close deals faster.
+  </Card>
+</CardGroup>

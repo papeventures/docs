@@ -1,0 +1,208 @@
+---
+title: "Automating Tasks and Workflows in MediaOS"
+description: "Set up trigger-based automation rules, workflow tasks, and scheduled reminders to save time and reduce manual follow-up across your entire team in MediaOS."
+---
+
+MediaOS automation lets you build workflows that run automatically when something happens in the system — a contract is signed, a proof is finalized, an invoice becomes overdue — so your team spends less time on manual follow-up and more time on selling. This guide explains how to create workflows, the triggers and steps available, and the built-in scheduling tools for recurring tasks like invoice reminders and artwork collection.
+
+<Note>
+  Workflows are a **Premium plan** feature. The Accounting and Delivery automation tabs (invoice reminders, auto-invoicing, artwork collection emails) are also Premium. Workflow creation requires an **Admin** user role.
+</Note>
+
+## What MediaOS automation can do
+
+Automation in MediaOS operates on a trigger-plus-steps model:
+
+- A **trigger** is an event that starts the workflow — for example, a contract being marked as sold, a payment being received, or a proof being finalized
+- **Steps** define what happens next — send an email, create a task, update a status, send a Slack message, create a deal, add a tag, or trigger another workflow
+
+Workflows can branch conditionally based on matching criteria — for example, "if the contract total is over $5,000, assign to the senior account manager; otherwise, send a standard welcome email."
+
+## Creating a workflow
+
+<Steps>
+  <Step title="Open the workflow list">
+    Go to **Settings → Automation → Workflows**. This tab lists all existing workflows with their name, object type, trigger event, active status, and whether any errors have occurred.
+  </Step>
+
+  <Step title="Create a new workflow">
+    Click **New Workflow** in the top right. You will be taken to the workflow editor, which has two tabs: **Workflow** (the visual builder) and **Settings**.
+  </Step>
+
+  <Step title="Configure workflow settings">
+    In the **Settings** tab:
+    - Give the workflow a clear name
+    - Toggle the workflow **Active** switch (workflows are inactive by default and do not run until activated)
+    - Choose whether the workflow activity appears in account activity feeds
+    - Set which user roles can trigger this workflow manually (Accounting, Production, Sales, Sales Manager)
+  </Step>
+
+  <Step title="Build the workflow steps">
+    In the **Workflow** tab, the visual builder shows a flow diagram. Click the **+** button between nodes to add a step. A search panel opens showing all available step types — search by name or browse the list.
+
+    For each step, configure its options in the side panel that appears. Add a description to remind yourself what the step does, then click **Save**.
+
+    To add a conditional branch, select a step that supports branching (such as a match/filter step) and click **Add Branch**. Each branch can have its own sequence of subsequent steps.
+  </Step>
+
+  <Step title="Test the workflow">
+    Use the **Test** button in the workflow editor to simulate running the workflow against a real record without actually executing any external actions (sending emails, creating tasks, etc.). Review the test output to confirm the logic behaves as expected.
+  </Step>
+
+  <Step title="Activate the workflow">
+    When you are satisfied with the configuration, click **Activate** in the workflow editor. MediaOS will confirm activation. The workflow will now run automatically whenever its trigger conditions are met.
+  </Step>
+</Steps>
+
+## Available triggers
+
+Workflows are associated with an **object type** (contracts, deals, invoices, payments, insertions, proofs, ad requests, or advertisers). The trigger fires when a specific event occurs on an object of that type.
+
+<Tabs>
+  <Tab title="Contracts and deals">
+    - Contract status changes (e.g., moved to Won/Sold, moved to a specific pipeline stage)
+    - Deal status changes (e.g., deal stage updated, deal archived)
+    - Contract created
+    - Deal created
+  </Tab>
+  <Tab title="Invoices and payments">
+    - Invoice created
+    - Invoice status changes (e.g., sent, paid, overdue)
+    - Payment received
+    - Payment allocated to an invoice
+  </Tab>
+  <Tab title="Delivery">
+    - Proof finalized (sent to advertiser)
+    - Ad request status changes
+    - Insertion status changes
+  </Tab>
+  <Tab title="Advertisers">
+    - Advertiser record created or updated
+    - Tag added to advertiser
+  </Tab>
+</Tabs>
+
+<Info>
+  The available triggers for a given workflow depend on the object type you select when creating the workflow. Choose the object type that best represents the event you want to respond to.
+</Info>
+
+## Workflow steps (actions)
+
+After a trigger fires, a workflow can execute any combination of the following steps:
+
+<AccordionGroup>
+  <Accordion title="Send customer email">
+    Sends a marketing email template to the advertiser's contact. You choose which email address to use (billing contact, sold-to contact, account primary email) and which template to send. Templates are managed in **Marketing → Templates**.
+  </Accordion>
+  <Accordion title="Send internal notification">
+    Sends an in-app notification or email to one or more MediaOS users — for example, alerting a sales manager when a large deal closes.
+  </Accordion>
+  <Accordion title="Send SMS">
+    Sends a text message to a contact phone number associated with the record.
+  </Accordion>
+  <Accordion title="Create a task">
+    Creates a follow-up task and assigns it to a specific user or role (the account owner, the rep who sold the contract, a randomly selected user from a pool, or a specific named user). Task fields include name, details, sub-tasks, and the object to attach the task to.
+  </Accordion>
+  <Accordion title="Create a deal">
+    Creates a new deal record linked to the advertiser, useful for automatically starting a renewal opportunity when a contract is completed.
+  </Accordion>
+  <Accordion title="Set status">
+    Updates the pipeline status of the triggering record — for example, automatically moving an insertion to "Proof Sent" after a proof is finalized.
+  </Accordion>
+  <Accordion title="Set billing status">
+    Updates the billing/invoice status on the associated record.
+  </Accordion>
+  <Accordion title="Set commission">
+    Assigns or adjusts the commission value on a contract or insertion.
+  </Accordion>
+  <Accordion title="Set sales lock">
+    Locks or unlocks the contract to prevent further edits.
+  </Accordion>
+  <Accordion title="Add or remove tags">
+    Adds or removes tags on the advertiser or deal record for segmentation purposes.
+  </Accordion>
+  <Accordion title="Add a note">
+    Appends an automated note to the activity feed of the associated record.
+  </Accordion>
+  <Accordion title="Request approval">
+    Pauses the workflow and sends an approval request to a user. The workflow resumes on the approved or rejected branch based on the response.
+  </Accordion>
+  <Accordion title="Delay">
+    Waits a specified number of hours or days before proceeding to the next step — useful for follow-up sequences where you want to wait a few days before sending a reminder.
+  </Accordion>
+  <Accordion title="Run another workflow">
+    Triggers a separate workflow, allowing you to chain workflows together or share reusable step sequences.
+  </Accordion>
+  <Accordion title="Send to MailChimp">
+    Adds or updates the advertiser contact in a MailChimp audience.
+  </Accordion>
+  <Accordion title="Send Slack message">
+    Posts a message to a configured Slack channel or direct message.
+  </Accordion>
+  <Accordion title="Send webhook">
+    Posts a JSON payload to an external URL, enabling integration with any system that accepts webhooks.
+  </Accordion>
+  <Accordion title="Filter / match step">
+    Evaluates conditions on the triggering record (advertiser match, contract match, insertion match, invoice match, payment match, or proof match) and routes the workflow down different branches based on what matches.
+  </Accordion>
+</AccordionGroup>
+
+## Scheduled and recurring automation
+
+In addition to event-triggered workflows, MediaOS provides built-in scheduled automation for common recurring tasks.
+
+### Invoice reminders
+
+Navigate to **Settings → Automation → Accounting** to configure **Past Due Reminders**. You can set up multiple reminder rules, each specifying:
+
+- **Days after due date** — how many days past the invoice due date to wait before sending
+- **Email template** — which marketing template to use for the reminder message
+
+MediaOS will automatically send the configured reminder emails to overdue accounts on the schedule you set.
+
+### Auto-invoice
+
+Enable **Auto Invoice** in the same Accounting tab to have MediaOS automatically generate invoices on a recurring schedule (daily, weekly, monthly, or a custom schedule using the built-in scheduler). You can also specify an **Auto-Invoice Email Template** so that invoices are emailed to advertisers automatically as soon as they are generated.
+
+### Automated artwork collection emails
+
+In **Settings → Automation → Delivery**, enable the **Automated Bulk Artwork Collection Email** to send scheduled reminders to advertisers who have upcoming insertions with missing artwork. Configure:
+
+- The **schedule** for when reminder emails go out
+- **Who gets emails**: everyone with an upcoming insertion, or only those with a missing ad
+- The **email template** to use (it is recommended to include the Missing Artwork content block in the template)
+
+You can test the artwork email against a specific account using the **Test Email** button before enabling it for all accounts.
+
+## Delivery rules (per-product)
+
+In **Settings → Automation → Delivery → Manage Rules**, you can configure per-product production rules:
+
+- **Pre-flight profile** — the PDF pre-flight check profile to apply when artwork is submitted (for issue-based products)
+- **Allow errors** — whether to allow artwork submission even if pre-flight checks fail
+- **Days before start** — how many days before the insertion run date to start sending artwork reminders
+- **Days before late** — how many days before the run date to escalate to a "late" status
+- **Artwork instructions** — custom instructions shown to the advertiser when they submit artwork for this product
+
+## Pipeline status automation
+
+Pipeline statuses for deals, contracts, insertions, and other objects are managed in **Settings → Automation → Pipelines**. For each object type you can:
+
+- Create multiple named pipelines (Premium plan)
+- Add, rename, reorder, and delete statuses within each pipeline
+- Assign colors and icons to statuses
+- Use the **Smart Status** selector in workflow steps to automatically move records to a specific status when a workflow runs
+
+<Tip>
+  If you delete a status that has records assigned to it, MediaOS will prompt you to transfer those records to a different status before deletion proceeds.
+</Tip>
+
+## Manually running a workflow
+
+If a workflow is configured to allow manual execution, authorized users can trigger it directly from a record (contract, deal, invoice, advertiser, etc.) using the **Run Workflow** action. Only users whose role is enabled in the workflow's Settings tab will see the manual run option.
+
+## Related pages
+
+- [Running your ad sales workflow](/guides/sales-workflow)
+- [Marketing campaigns](/guides/marketing-campaigns)
+- [Integrations overview](/integrations/overview)

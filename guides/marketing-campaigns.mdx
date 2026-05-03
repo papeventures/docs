@@ -1,0 +1,122 @@
+---
+title: "Running Marketing Campaigns in MediaOS"
+description: "Create email campaigns, manage reusable templates, track campaign activity, and capture leads with website forms — all from within MediaOS."
+---
+
+MediaOS includes a built-in marketing suite that lets you send email campaigns to your advertisers and prospects directly from the platform. Because your advertiser contacts, account data, and campaign history all live in the same system, you can target campaigns based on real sales data — send renewal offers to accounts whose contracts expire next month, run re-engagement campaigns for advertisers who haven't booked in a year, or announce a new product to a curated segment — without exporting lists to an external tool.
+
+## Marketing campaigns overview
+
+A **campaign** in MediaOS is a single email send to a defined audience. Campaigns are tied to a contact list or a filtered set of records (advertisers, invoices, contracts, or other objects depending on where you launch the campaign from), and each campaign uses a reusable **template** for its content.
+
+Navigate to **Marketing → Campaigns** to see the list of all past and active campaigns, including their status, send date, recipient count, and open and click rates.
+
+## Creating a campaign
+
+<Steps>
+  <Step title="Choose your audience">
+    Campaigns can be launched from the Marketing section directly, or from a data table view (such as the Accounts list or the Contracts list) by selecting records and choosing **Email Campaign** from the bulk action menu.
+
+    When launching from a data table, you can choose to send to:
+    - **Checked results** — only the records you have manually selected
+    - **All search results** — everyone matching your current filters
+
+    When launching from the Marketing section, you define the audience by selecting a list or applying filters.
+
+    You can also enable **deduplication** to ensure that if multiple records share the same email address, only one copy of the campaign email is sent to that address.
+  </Step>
+
+  <Step title="Name the campaign">
+    Enter a campaign name. This is an internal label that helps you identify the campaign in your history — it is not shown to recipients.
+  </Step>
+
+  <Step title="Select or create a template">
+    Choose an existing email template from your template library, or create a new one. Click **Edit Template** to open the drag-and-drop email builder (powered by Bee Editor) directly from the campaign wizard.
+
+    After selecting a template, a thumbnail preview appears in the left panel so you can confirm you have chosen the right design.
+  </Step>
+
+  <Step title="Configure send settings">
+    Set the **from name**, **from email address**, **reply-to address**, and **email subject line**. The subject line supports merge tags so you can personalize it with the recipient's name or company.
+  </Step>
+
+  <Step title="Preview and send">
+    Use the **Preview** option to see how the email will appear to recipients. Send a **test email** to your own address to review formatting and links before the live send.
+
+    When you are ready, click **Send** to dispatch the campaign immediately, or schedule it for a future date and time.
+  </Step>
+</Steps>
+
+<Tip>
+  To send a campaign to a newsletter subscriber list (contacts who opted in via a lead form or import), use the **Member Newsletter** workflow, which provides additional content block options for inserting dynamic content tied to individual subscriber preferences.
+</Tip>
+
+## Email templates
+
+Templates are reusable email designs managed in **Marketing → Templates**. A template defines the visual layout, branding, and content blocks for an email — the campaign wizard just adds the audience and send settings on top.
+
+**Creating and editing templates**
+
+Click **+ New Template** in the template library. MediaOS uses a drag-and-drop block editor (Bee Editor) that lets you build professional HTML emails without writing code. You can:
+
+- Drag in text blocks, image blocks, buttons, dividers, and social links
+- Set background colors, fonts, and padding per block
+- Add merge tags (`{{advertiser_name}}`, `{{contact_first_name}}`, etc.) to personalize content
+- Save a template and reuse it across any number of campaigns
+
+**Template gallery**
+
+The template gallery shows thumbnails of all saved templates with their name and the object type they are designed for. You can filter by channel (Email) and object type to find the right template quickly.
+
+**Object types and content blocks**
+
+Templates are associated with an object type (Advertisers, Invoices, Contracts, etc.), which determines which merge fields and dynamic content blocks are available. For example, an invoice template can include a content block that renders the invoice table; an artwork collection template can include the **Missing Artwork** block that lists the advertiser's outstanding insertions.
+
+## Tracking campaign activity
+
+After a campaign is sent, MediaOS tracks engagement metrics for each send:
+
+- **Delivered** — number of emails that reached the recipient's inbox
+- **Opened** — number and percentage of recipients who opened the email
+- **Clicked** — number and percentage of recipients who clicked a link
+- **Bounced** — addresses that could not be delivered (hard and soft bounces)
+- **Unsubscribed** — recipients who opted out via the unsubscribe link
+
+Access these statistics from **Marketing → Campaigns**, click the campaign name, and open the **Activity** tab. You can view per-recipient engagement data to see exactly which accounts opened or clicked.
+
+All campaign interactions are also recorded in the account's activity feed, so your sales team can see at a glance whether an advertiser recently opened a renewal email before making a follow-up call.
+
+## Website and landing page forms (lead forms)
+
+MediaOS includes a **Forms** builder (available under **Settings → Automation → Forms** on the Premium plan) that lets you create embeddable web forms for lead capture. Forms can be embedded on your website or shared as standalone landing page URLs.
+
+When a contact submits a form, MediaOS can:
+
+- Create a new advertiser account or update an existing one
+- Add the contact to a campaign subscriber list
+- Trigger an automation workflow (for example, send a welcome email and create a deal for the sales team)
+
+Form fields, submission behavior, and styling are configured in the Forms builder. Each form has a unique embed code and a hosted URL you can share directly.
+
+<Info>
+  The Forms feature requires the **Premium plan**. If you do not see the Forms tab, check your plan or contact your account administrator.
+</Info>
+
+## MailChimp and SendGrid integrations
+
+MediaOS can connect to external email service providers for campaigns that require advanced deliverability, list management, or audience segmentation beyond what is built in.
+
+<CardGroup cols={2}>
+  <Card title="MailChimp" icon="mailchimp" href="/integrations/overview">
+    Sync your MediaOS advertiser contacts to MailChimp audiences. The MailChimp workflow step in automation lets you add or update contacts in a specific audience automatically when a trigger fires — for example, adding a new advertiser to a welcome sequence in MailChimp as soon as their account is created in MediaOS. See [Integrations overview](/integrations/overview) for setup instructions.
+  </Card>
+  <Card title="SendGrid" icon="envelope" href="/integrations/overview">
+    Route your MediaOS transactional and campaign emails through SendGrid for improved deliverability, bounce handling, and sending reputation management. When SendGrid is connected, campaign sends and automated workflow emails are dispatched via your SendGrid account. See [Integrations overview](/integrations/overview) for setup instructions.
+  </Card>
+</CardGroup>
+
+## Related pages
+
+- [Automating tasks and workflows](/guides/automation)
+- [Running your ad sales workflow](/guides/sales-workflow)
+- [Integrations overview](/integrations/overview)

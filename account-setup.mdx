@@ -1,0 +1,153 @@
+---
+title: "Account Setup and Configuration"
+description: Configure your MediaOS account settings, branding, tax rates, and invoice templates to match your organization's needs before you start selling.
+---
+
+Before your team starts selling, take a few minutes to configure your MediaOS account. The settings you establish here—your company name and time zone, invoice templates, tax rates, and contract terms—appear on every document you send to advertisers. Getting them right up front means your proposals and invoices will look professional from day one.
+
+<Info>
+  Account settings are only accessible to administrators. If you don't see the **Settings** option in the navigation, contact your account administrator.
+</Info>
+
+## General settings
+
+General settings control account-wide behavior such as your time zone, security options, and system defaults. To access them, navigate to **Settings → General Settings**.
+
+The general settings panel includes a search box so you can quickly find any individual setting by name or description. Settings are grouped into sections and automatically saved when you change them—no save button required for most options.
+
+Key things to configure here:
+
+- **Time zone** — Make sure this matches the timezone your publication operates in. Run dates and due dates display relative to this setting.
+- **Security settings** — Configure session timeout and password requirements for your team.
+- **Next contract and invoice numbers** — If you're migrating from another system, you can set the starting contract number and invoice number under **Settings → General Settings** so that your numbering sequence continues from where your previous system left off.
+
+## Adding users
+
+Each person on your team who needs access to MediaOS needs a user account. Navigate to **Settings → Users** to manage your team.
+
+When adding a user, assign them one of the available permission levels:
+
+- **Administrator** — Full access to all settings, reports, and data. Administrators are the only users who can connect to the REST API.
+- **Sales Manager** — Can manage contracts, advertisers, and reports for all reps.
+- **Sales Rep** — Standard access to their own accounts and contracts.
+
+<Note>
+  The number of users you can add depends on your plan. Contact your sales representative if you need to increase your user limit.
+</Note>
+
+## Branding and templates
+
+MediaOS lets you create branded templates for proposals, contracts, invoices, payment plan invoices, and statements. Templates are available on the **Plus plan and above**.
+
+To manage templates, go to **Settings → Templates**.
+
+For each template you can:
+
+- **Upload a logo** — Supported formats include PNG, JPG, and SVG. The logo appears in the header of all documents using that template.
+- **Edit the contract/proposal layout** — Customize the visual arrangement of your proposal and contract documents.
+- **Edit the invoice layout** — Customize the invoice document independently from the contract.
+- **Edit the payment plan invoice layout** — Tailor the document sent when an advertiser is on a payment schedule.
+- **Edit the statement layout** — Control the format of account statements.
+- **Duplicate a template** — Use an existing template as the starting point for a new variation.
+- **Rename or delete a template** — Keep your template list organized as your branding evolves.
+
+<Tip>
+  Create separate templates for different publications or brands within your company. When building a contract, you can choose which template to apply before sending.
+</Tip>
+
+## Contract terms
+
+Contract terms are the legal and policy text that appears at the bottom of proposals and contracts—covering payment terms, cancellation policies, deadline requirements, and similar conditions.
+
+Go to **Settings → Contract Terms** to create and manage your terms. You can maintain multiple sets of terms and choose the appropriate one when creating each contract.
+
+## Tax rates
+
+If you collect sales tax on advertising, configure your tax rates before creating contracts. Navigate to **Settings → Tax Rates**.
+
+To add a tax rate:
+1. Click **Add Tax Rate**.
+2. Enter a name (for example, "State Sales Tax") and the percentage rate.
+3. Click **Save**.
+
+Tax rates can be marked active or archived. Archived rates no longer appear in the rate selector when building contracts, but historical contracts that used them are unaffected.
+
+<Note>
+  If your account is connected to QuickBooks, tax rates are managed through QuickBooks and the **Tax Rates** menu will not appear in MediaOS settings. Changes to tax rates should be made in QuickBooks directly.
+</Note>
+
+## Invoice line item types
+
+Invoice line item types let you add line items to invoices that go beyond what's in the contract—for example, late fees, adjustments, or supplemental charges. Configure these under **Settings → Invoice Line Item Types** (Standard plan and above).
+
+Contract-specific secondary line items (such as production fees or position charges) are managed separately under **Settings → Contract Line Items** (Standard plan and above).
+
+## Payment accounts
+
+If your account has GL account codes enabled, you can set up payment accounts to track incoming revenue by account. Go to **Settings → Payment Accounts** to add accounts with a name, GL account code, and unearned revenue code.
+
+Payment accounts are available on the Standard plan and above, and must be enabled by your account administrator.
+
+## Email configuration
+
+Emails sent from MediaOS—proposals, invoices, and automated follow-ups—use MediaOS's shared email infrastructure by default. To improve deliverability and ensure your emails pass spam filters, configure your own sending domain.
+
+**DKIM email records (Standard plan and above):** Navigate to **Settings → DKIM Email Records** to add DNS TXT records to your domain. Once verified, MediaOS will send emails as your domain rather than a shared MediaOS domain.
+
+**SendGrid relay (Premium):** For even greater control over deliverability, connect your own SendGrid account under **Settings → Integrations → SendGrid**. This routes all outbound email through your SendGrid account.
+
+**Email account (Standard and above):** Connect your calendar and email account under **Settings → Integrations → Email** to automatically sync appointments and sent emails with your CRM activity feed.
+
+## Custom fields
+
+Custom fields let you capture information about advertisers, contacts, or contracts that MediaOS doesn't have a built-in field for. Go to **Settings → Custom Fields** to add fields (Standard plan and above).
+
+Fields can be text inputs, dropdowns, dates, or checkboxes, and they appear within the relevant record types throughout the application.
+
+## Integrations
+
+MediaOS connects to a wide range of third-party tools. All integrations are configured under **Settings → Integrations**. See the [integrations overview](/integrations/overview) for a full list and setup instructions for each.
+
+<CardGroup cols={2}>
+  <Card title="QuickBooks" icon="receipt" href="/integrations/quickbooks">
+    Sync invoices, payments, and contacts with QuickBooks Online or Desktop.
+  </Card>
+  <Card title="DocuSign" icon="file-signature" href="/integrations/docusign">
+    Collect e-signatures on proposals and automatically convert them to contracts.
+  </Card>
+  <Card title="HubSpot" icon="users" href="/integrations/hubspot">
+    Import contacts and view MediaOS data inside HubSpot.
+  </Card>
+  <Card title="Zapier" icon="zap" href="/integrations/zapier">
+    Connect MediaOS to over 1,000 apps using automated workflows.
+  </Card>
+</CardGroup>
+
+## Plan-gated settings
+
+Some settings and features are only available on specific plans. The table below summarizes which plan is required for the main configuration areas.
+
+| Setting area | Minimum plan |
+|---|---|
+| General settings | All plans |
+| Tax rates | All plans (except when QuickBooks is active) |
+| Stripe payment processing | All plans |
+| DKIM email records | Standard |
+| Custom fields | Standard |
+| Contract line item types | Standard |
+| Invoice line item types | Standard |
+| Authorize.Net processing | Standard |
+| Templates (branding) | Plus |
+| DocuSign e-signatures | Plus |
+| QuickBooks sync | Plus |
+| Payment accounts | Standard (with GL codes enabled) |
+| HubSpot integration | Premium |
+| SendGrid relay | Premium |
+| Zapier integration | Premium |
+| REST API access | Premium |
+| Google Ad Manager | Premium |
+| Adobe InDesign | Premium |
+
+<Warning>
+  Attempting to use a feature above your current plan will display an access error. Contact your sales representative to upgrade your plan.
+</Warning>

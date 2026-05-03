@@ -1,0 +1,116 @@
+---
+title: "Reports and Analytics in MediaOS"
+description: "Run revenue reports, activity reports, and custom views to analyze your ad sales performance — with built-in filters, export, and dashboard widgets."
+---
+
+MediaOS includes a full suite of built-in reports that cover every part of your ad sales and billing operation, from pipeline forecasting to payment allocation and invoice aging. Reports are accessible from the **Reports** section of the main navigation. This guide covers the available report types, how to configure and run them, and how to share or export results.
+
+## Available built-in reports
+
+<CardGroup cols={2}>
+  <Card title="Account Balances" icon="scale-balanced">
+    Shows the current outstanding balance for each advertiser account — the total amount invoiced minus payments received. Use this to identify accounts with overdue balances at a glance.
+  </Card>
+  <Card title="Activity" icon="clock-rotate-left">
+    A log of all CRM activity across accounts — notes, calls, emails, tasks, and automated workflow events. Filter by account, user, activity type, or date range. Exportable to CSV.
+  </Card>
+  <Card title="Applied Payments" icon="money-bill-transfer">
+    Lists all payments that have been applied to invoices within a date range, showing the payment date, amount, invoice number, and advertiser. Useful for reconciling cash receipts against invoices.
+  </Card>
+  <Card title="Contract Line Items" icon="list-check">
+    A detailed breakdown of every insertion line item across all contracts, including the advertiser, product, issue or run date, ad size, net rate, and contract status. Can be filtered by date, product, sales rep, and more.
+  </Card>
+  <Card title="Invoice Days to Paid" icon="calendar-check">
+    Shows how many days elapsed between invoice date and payment received for each paid invoice. Helps you identify patterns in collection speed by advertiser, product type, or sales rep.
+  </Card>
+  <Card title="Invoice Line Item Summary" icon="receipt">
+    Summarizes invoice amounts at the line-item level, grouped by advertiser or product. Useful for understanding what revenue is tied to which specific insertions on your invoices.
+  </Card>
+  <Card title="Payment Allocation" icon="arrows-split-up-and-left">
+    Shows how payments have been allocated across multiple invoices for an account — useful when an advertiser makes a lump payment that is spread across several open invoices.
+  </Card>
+  <Card title="Sales Run Sheet" icon="table-list">
+    A master list of all sold insertion line items sorted by run date. This is the primary production schedule report, showing advertiser, product, issue, size, placement, and net rate for every booked ad. Exportable to CSV.
+  </Card>
+  <Card title="Upcoming Auto Payments" icon="rotate">
+    Lists contracts or accounts that have automatic payment scheduled in the near future. Use this to anticipate cash flow and confirm that payment methods are on file before charges run.
+  </Card>
+  <Card title="Year-to-Date Comparison" icon="chart-line">
+    Side-by-side comparison of revenue for two different years, broken down by month or week. You can compare by contract sold date or by revenue earned date, and filter by product type, specific product, and sales rep.
+  </Card>
+</CardGroup>
+
+## How to run a report
+
+1. Navigate to **Reports** in the main navigation and select the report you want to run.
+2. Use the filter controls at the top of the report page to narrow the results. Common filters include:
+   - **Date range** — most reports let you select a from/to date or choose a relative period (this month, last quarter, next 90 days, etc.)
+   - **Product / product type** — limit results to a specific publication, ad type, or product category
+   - **Sales rep** — filter by the user who sold the contract or who owns the account
+   - **Advertiser** — run the report for a single account
+   - **Contract or insertion status** — include only sold contracts, open contracts, or specific pipeline statuses
+3. Click **Filter** or **Search** to apply your selections and load the results.
+
+<Tip>
+  The Year-to-Date Comparison report has an additional **Comparison Year** option. MediaOS automatically calculates the matching "contracts sold as of" date for the prior year so the comparison is apples-to-apples.
+</Tip>
+
+## Sales forecasting (advanced)
+
+The **Advanced Forecasting** report is available to admins and sales managers on the Plus plan or higher. Access it from **Sales → Forecast → Advanced Forecasting**.
+
+This report displays a set of stacked bar charts showing:
+
+- Pipeline forecast by deal stage over time
+- Forecasted revenue by product and by month
+- Page count projections by ad size and by rep
+- Revenue breakdown by product type and pipeline status
+
+You can filter by date range, breakdown period (month, quarter, or year), sales rep, and specific products. Charts are rendered interactively and can be exported.
+
+## Custom reports
+
+For reporting needs beyond the built-in templates, MediaOS provides a custom report builder. From the Reports section, look for the **Custom Reports** option to:
+
+- Choose a base data set (contracts, insertions, invoices, payments, or accounts)
+- Select which columns to include
+- Apply filters and groupings
+- Save the configuration as a named report view that you can return to later
+
+<Note>
+  Custom report access and the ability to save report views may depend on your plan level and user role. Contact your account administrator if you do not see the custom report option.
+</Note>
+
+## Sharing reports
+
+Reports in MediaOS can be shared with other users in your organization in two ways:
+
+- **Saved filters** — many reports support saving a specific filter configuration (date range, product, user, etc.) as a named tab that appears at the top of the report page. These saved filter tabs are visible to all users with report access.
+- **Exported links** — you can copy the URL of a filtered report and send it to a colleague. As long as they are logged in to MediaOS, they will see the same filtered view.
+
+## Exporting report data
+
+Most built-in reports include an **Export CSV** button in the toolbar. Click it to download the current filtered report results as a comma-separated values file suitable for use in Excel or other tools.
+
+The Sales Run Sheet and Activity report also offer a **Print** option that formats the report for printing or saving as a PDF directly from your browser.
+
+<Warning>
+  CSV export for some reports is restricted to admins, accounting users, and sales managers. If you do not see the Export button, your user role may not have permission.
+</Warning>
+
+## Dashboard widgets
+
+The MediaOS dashboard surfaces key metrics from your reports without requiring you to navigate to the full report view. Common dashboard widgets include:
+
+- **Revenue summary** — total invoiced, total collected, and outstanding balance for the current period
+- **Pipeline summary** — deal values by stage for the current month or quarter
+- **Recent activity** — the latest notes, tasks, and workflow events across your accounts
+- **Upcoming insertions** — a preview of the run sheet for the next two weeks
+
+Dashboard widgets can be configured per user, so each team member sees the numbers most relevant to their role.
+
+## Related pages
+
+- [Running your ad sales workflow](/guides/sales-workflow)
+- [Managing ad delivery and production](/guides/ad-delivery)
+- [Automating tasks and workflows](/guides/automation)

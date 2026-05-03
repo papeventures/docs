@@ -1,0 +1,283 @@
+---
+title: "REST API endpoints for invoices"
+description: "Search and retrieve invoice records via the MediaOS REST API, with filters for contract, advertiser, date ranges, and amount ranges."
+---
+
+The invoices endpoints let you list and retrieve invoices generated from contracts in your MediaOS account. The list endpoint returns standard invoices only — credit memos are excluded from results.
+
+The invoices file also exposes endpoints for invoice line items and invoice line item types, documented on this page.
+
+All list requests support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.
+
+---
+
+## List invoices
+
+```
+GET /invoices/
+```
+
+Returns a paginated list of invoice records matching the supplied filters. Credit memos are always excluded.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the invoice with this exact ID.
+</ParamField>
+
+<ParamField query="contract_id" type="integer">
+  Return only invoices generated from this contract.
+</ParamField>
+
+<ParamField query="advertiser_id" type="integer">
+  Return only invoices for this advertiser.
+</ParamField>
+
+<ParamField query="amount_from" type="number">
+  Return invoices with a total amount greater than or equal to this value.
+</ParamField>
+
+<ParamField query="amount_to" type="number">
+  Return invoices with a total amount less than or equal to this value.
+</ParamField>
+
+<ParamField query="date_created_before" type="string">
+  Return invoices created on or before this date. Use ISO 8601 format (for example, `2024-12-31`).
+</ParamField>
+
+<ParamField query="date_created_after" type="string">
+  Return invoices created on or after this date.
+</ParamField>
+
+<ParamField query="date_due_before" type="string">
+  Return invoices with a due date on or before this date.
+</ParamField>
+
+<ParamField query="date_due_after" type="string">
+  Return invoices with a due date on or after this date.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by invoice ID (default) |
+| `date_created` | Sort by creation date |
+| `date_due` | Sort by due date |
+| `total` | Sort by invoice total |
+
+Default sort order is `desc`.
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/invoices/?advertiser_id=1042&date_due_after=2024-01-01&sort_by=date_due&sort_order=asc"
+```
+
+### Example response
+
+```json
+{
+  "invoices": [
+    {
+      "id": 4401,
+      "contract_id": 8801,
+      "advertiser_id": 1042,
+      "billing_address": {
+        "id": 88,
+        "address1": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62701"
+      },
+      "billing_email": { "id": 201, "value": "billing@acme.example.com" },
+      "tax_rate": { "id": 5, "name": "State Tax", "percent": 6.25 },
+      "tax_after_discount": false,
+      "tax_percent_based": true,
+      "discount_amount": 0,
+      "currency": { "id": 1, "code": "USD", "symbol": "$" },
+      "sub_total": 1250.00,
+      "discount_total": 0,
+      "tax_total": 78.13,
+      "total": 1328.13,
+      "status": "Unpaid",
+      "date_due": "2024-02-20",
+      "exchange_rate": null,
+      "comments": null,
+      "date_created": "2024-01-20",
+      "date_deleted": null,
+      "date_modified": "2024-01-20 10:00:00",
+      "line_items": []
+    }
+  ],
+  "count": 1
+}
+```
+
+---
+
+## Get a single invoice
+
+```
+GET /invoices/{id}
+```
+
+Returns a single invoice record by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the invoice.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/invoices/4401
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the invoice.
+</ResponseField>
+
+<ResponseField name="contract_id" type="integer">
+  The ID of the contract this invoice was generated from.
+</ResponseField>
+
+<ResponseField name="advertiser_id" type="integer">
+  The ID of the advertiser on this invoice.
+</ResponseField>
+
+<ResponseField name="billing_address" type="object">
+  The billing mailing address for this invoice.
+</ResponseField>
+
+<ResponseField name="billing_email" type="object">
+  The contact data record used for billing email delivery.
+</ResponseField>
+
+<ResponseField name="tax_rate" type="object">
+  The tax rate applied to this invoice.
+</ResponseField>
+
+<ResponseField name="tax_after_discount" type="boolean">
+  Whether tax is calculated after the discount is applied.
+</ResponseField>
+
+<ResponseField name="tax_percent_based" type="boolean">
+  Whether the discount is calculated as a percentage.
+</ResponseField>
+
+<ResponseField name="discount_amount" type="number">
+  The discount value applied to this invoice.
+</ResponseField>
+
+<ResponseField name="currency" type="object">
+  The currency used on this invoice.
+</ResponseField>
+
+<ResponseField name="sub_total" type="number">
+  The pre-tax, pre-discount subtotal.
+</ResponseField>
+
+<ResponseField name="discount_total" type="number">
+  The total discount amount deducted.
+</ResponseField>
+
+<ResponseField name="tax_total" type="number">
+  The total tax amount applied.
+</ResponseField>
+
+<ResponseField name="total" type="number">
+  The final invoice total after discount and tax.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  The payment status of the invoice (for example, `Unpaid`, `Paid`).
+</ResponseField>
+
+<ResponseField name="date_due" type="string">
+  The date payment is due.
+</ResponseField>
+
+<ResponseField name="exchange_rate" type="object">
+  Currency exchange rate information, if applicable.
+</ResponseField>
+
+<ResponseField name="comments" type="string">
+  Optional comments on the invoice.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  Date the invoice was created.
+</ResponseField>
+
+<ResponseField name="date_deleted" type="string">
+  Date the invoice was deleted, or `null` if it is still active.
+</ResponseField>
+
+<ResponseField name="date_modified" type="string">
+  ISO 8601 datetime when the invoice was last modified.
+</ResponseField>
+
+<ResponseField name="line_items" type="array">
+  The line items on this invoice.
+</ResponseField>
+
+---
+
+## Get a single invoice line item
+
+```
+GET /invoiceLineItems/{id}
+```
+
+Returns a single invoice line item by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the invoice line item.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/invoiceLineItems/990
+```
+
+---
+
+## List invoice line item types
+
+```
+GET /invoiceLineItemTypes/
+```
+
+Returns all available invoice line item types. No parameters required.
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/invoiceLineItemTypes/
+```
+
+---
+
+## Get a single invoice line item type
+
+```
+GET /invoiceLineItemTypes/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the invoice line item type.
+</ParamField>

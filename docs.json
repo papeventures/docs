@@ -1,0 +1,116 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "maple",
+  "name": "MediaOS",
+  "description": "Documentation and guides for MediaOS—ad sales, contracts, delivery, reporting, and API reference.",
+  "colors": {
+    "primary": "#ee6610",
+    "light": "#e9c444",
+    "dark": "#1c2434"
+  },
+  "favicon": "https://media.brand.dev/e1577233-61f9-4bbc-882f-cf9f873bc6c0.jpg",
+  "logo": {
+    "light": "https://media.brand.dev/a62782a4-c244-4e30-b87a-bf6736018dea.svg",
+    "dark": "https://media.brand.dev/a62782a4-c244-4e30-b87a-bf6736018dea.svg"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
+  "contextual": {
+    "options": ["copy", "view", "assistant"]
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "account-setup"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/advertisers-contacts",
+              "concepts/products-inventory",
+              "concepts/contracts-proposals",
+              "concepts/invoices-payments"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/sales-workflow",
+              "guides/ad-delivery",
+              "guides/reporting",
+              "guides/automation",
+              "guides/marketing-campaigns"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/quickbooks",
+              "integrations/zapier",
+              "integrations/docusign",
+              "integrations/hubspot"
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "settings/account",
+              "settings/users-permissions",
+              "settings/pipelines-workflows"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api/authentication",
+              "api/pagination"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/advertisers",
+              "api/contacts",
+              "api/contracts",
+              "api/invoices",
+              "api/payments",
+              "api/products",
+              "api/ads"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "API Reference",
+        "href": "/api/authentication"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Sign In",
+      "href": "https://app.mediaosnow.com"
+    }
+  }
+}

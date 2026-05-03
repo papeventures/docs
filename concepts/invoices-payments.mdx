@@ -1,0 +1,160 @@
+---
+title: "Invoices, Payments, and Billing in MediaOS"
+description: "Learn how MediaOS generates invoices from contracts, records payments, manages payment plans, handles credit memos, and syncs with QuickBooks."
+---
+
+MediaOS handles the full billing lifecycle for your ad sales. Once a contract is signed, the system can generate invoices automatically based on your billing rules, track payments as they come in, apply credit memos, and push financial data to QuickBooks. This page explains how each piece of the billing workflow fits together.
+
+## How invoices are generated
+
+Invoices in MediaOS are tied to contracts. When a proposal is converted to a signed contract, MediaOS evaluates the contract's billing rules and creates invoice records accordingly.
+
+You can bill a contract in several ways:
+
+<Tabs>
+  <Tab title="Full payment up front">
+    A single invoice is generated for the full contract total, due on a date you specify. This is the simplest billing model and works well for short-term campaigns or small advertisers.
+  </Tab>
+  <Tab title="Payment plan">
+    The contract total is split into multiple scheduled invoices. You define the number of installments, the amounts, and the due dates. MediaOS generates one invoice per installment and tracks each one independently.
+  </Tab>
+  <Tab title="Per-issue billing">
+    For print products with multiple issues, you can configure billing to generate one invoice per issue as each publication date approaches. This is common for annual advertisers who prefer to pay issue by issue.
+  </Tab>
+  <Tab title="Manual invoice">
+    You can create an invoice manually from the advertiser's Accounting tab at any time, independent of a contract. This is useful for one-off charges, deposits, or corrections.
+  </Tab>
+</Tabs>
+
+Each invoice stores a creation date, a due date, the advertiser it belongs to, and an optional reference to the originating contract. Invoices also carry a billing email address pre-populated from the advertiser's or agency's contact data.
+
+---
+
+## Invoice statuses
+
+MediaOS tracks the status of each invoice to reflect where it is in the collection process:
+
+| Status | Meaning |
+|---|---|
+| **Open** | The invoice has been issued and payment has not been received. |
+| **Partially paid** | One or more payments have been applied, but the balance is not yet zero. |
+| **Paid** | The full invoice amount has been collected. |
+| **Overdue** | The due date has passed and the invoice is not yet fully paid. |
+| **Voided** | The invoice has been cancelled and is excluded from aging and balance calculations. |
+
+You can filter the invoice list by advertiser, contract, amount range, creation date, and due date using the `GET /invoices/` endpoint.
+
+<Info>
+  The API endpoint for invoices automatically excludes credit memos. Credit memos are a separate record type that offsets invoice balances. See the credit memos section below.
+</Info>
+
+---
+
+## Payment plans and autopay schedules
+
+A **payment plan** is a predefined schedule that breaks a contract total into installments. MediaOS generates a payment plan document (available as HTML or PDF) that you can share with the advertiser to confirm the billing schedule.
+
+**Autopay schedules** go one step further: if an advertiser has a payment account on file (such as a saved credit card via Stripe or a bank account via Authorize.net), MediaOS can charge the payment method automatically on each scheduled due date.
+
+To set up autopay:
+
+1. The advertiser submits their payment information via the secure **Payment Information Form** portal link, or you enter it manually in the Payment Accounts panel on the advertiser record.
+2. You associate the payment account with the advertiser's invoices or payment plan.
+3. MediaOS charges the payment method on each scheduled date and records the payment automatically.
+
+<Tip>
+  You can copy the Payment Information Form portal link from the advertiser's Portal Links panel and send it directly to the advertiser. The link expires after 30 days.
+</Tip>
+
+---
+
+## Recording payments manually
+
+You can record payments manually from the advertiser's **Accounting** tab or from within a specific invoice. A payment record captures:
+
+- The amount received
+- The payment date
+- The payment method (check, ACH, credit card, cash, etc.)
+- An optional reference number (check number, transaction ID)
+- The invoices to apply the payment against
+
+One payment can be applied across multiple invoices. If a payment is received for more than the outstanding balance, the excess becomes an unapplied credit on the account.
+
+---
+
+## Credit memos
+
+A **credit memo** is a negative invoice that reduces an advertiser's outstanding balance. You create a credit memo when you need to:
+
+- Issue a partial or full refund on a contract
+- Apply a discount after the fact
+- Correct a billing error
+- Cancel a line item that has already been invoiced
+
+Credit memos are applied against open invoices from the advertiser's accounting view. Once applied, the invoice balance is reduced by the credit memo amount. If no open invoices exist, the credit memo sits as an unapplied credit until a future invoice is issued.
+
+<Warning>
+  If your account uses QuickBooks Online, credit memos are managed in QuickBooks and synced back to MediaOS. Do not create credit memos directly in MediaOS when QuickBooks Online is connected — doing so may cause reconciliation issues.
+</Warning>
+
+---
+
+## Payment accounts
+
+MediaOS integrates with payment processors to store advertiser payment methods and charge them on demand. Supported processors include:
+
+<CardGroup cols={2}>
+  <Card title="Stripe" icon="credit-card">
+    Accept credit and debit cards. Stripe is the recommended processor for most MediaOS accounts. Stored cards are vaulted in Stripe's PCI-compliant environment.
+  </Card>
+  <Card title="Authorize.net" icon="building-columns">
+    Accept credit cards and ACH bank transfers. Useful if your organization already has an Authorize.net merchant account.
+  </Card>
+</CardGroup>
+
+Payment accounts are managed from the **Manage Payment Accounts** button on the advertiser record. Each advertiser can have multiple payment methods on file. You can designate a default method for autopay.
+
+---
+
+## QuickBooks sync
+
+MediaOS can sync invoices and payments to QuickBooks Online. When the integration is active:
+
+- Invoices created in MediaOS are pushed to QuickBooks as QuickBooks invoices.
+- Payments recorded in MediaOS are pushed to QuickBooks as payments applied to the corresponding QuickBooks invoice.
+- Each product can be mapped to a QuickBooks item, class, and tax code so revenue posts to the correct accounts.
+
+You can send invoices to QuickBooks individually or in bulk from the **Accounting** section. MediaOS logs any sync errors so you can identify and resolve mismatches.
+
+<Note>
+  QuickBooks Desktop (non-Online) is also supported via a separate sync workflow. See the [QuickBooks integration guide](/integrations/quickbooks) for full setup instructions for both QuickBooks Online and Desktop.
+</Note>
+
+---
+
+## Account balances and aging reports
+
+MediaOS calculates a running balance for each advertiser based on open invoices minus recorded payments and applied credit memos. You can view the current balance from the advertiser's Accounting tab using the **Show Balance** button.
+
+For a full picture of outstanding receivables across all advertisers, use the **aging report** in the Accounting section. The aging report groups open balances by time bucket (current, 30 days, 60 days, 90+ days) so your accounting team can prioritize collections.
+
+The **statement** view generates a printable summary of all invoices and payments for a specific advertiser, useful for sending to advertisers who want a billing history.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Contracts and proposals" icon="file-text" href="/concepts/contracts-proposals">
+    Invoices are generated from signed contracts. Learn how the contract lifecycle works.
+  </Card>
+  <Card title="QuickBooks integration" icon="receipt" href="/integrations/quickbooks">
+    Step-by-step setup for syncing MediaOS billing data with QuickBooks.
+  </Card>
+  <Card title="Invoices API" icon="code" href="/api/invoices">
+    Query invoices and invoice line items via the REST API.
+  </Card>
+  <Card title="Payments API" icon="code" href="/api/payments">
+    Record and retrieve payment data programmatically.
+  </Card>
+</CardGroup>

@@ -1,0 +1,468 @@
+---
+title: "REST API endpoints for products and ad inventory"
+description: "Retrieve products, ad sizes, ad rates, publication issues, sections, and locations via the MediaOS REST API to build and manage ad inventory."
+---
+
+The products endpoints expose the core ad inventory catalog in your MediaOS account. A **product** (also called a publication) is the top-level container — for example, a print magazine or a digital newsletter. Products contain ad sizes, ad rates, issues, sections, and locations.
+
+<Note>
+Several of these endpoints require a `product_id` query parameter. You must fetch your product IDs from the `/products/` endpoint first before querying child resources.
+</Note>
+
+---
+
+## List products
+
+```
+GET /products/
+```
+
+Returns all products (publications) in your account. No parameters required.
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/products/
+```
+
+### Example response
+
+```json
+{
+  "products": [
+    {
+      "id": 10,
+      "name": "Springfield Weekly",
+      "active": true,
+      "product_type": { "id": 1, "name": "Print" }
+    }
+  ]
+}
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the product.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The product's display name.
+</ResponseField>
+
+<ResponseField name="active" type="boolean">
+  Whether the product is currently active.
+</ResponseField>
+
+<ResponseField name="product_type" type="object">
+  The product type (for example, Print, Digital).
+</ResponseField>
+
+---
+
+## Get a single product
+
+```
+GET /products/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the product.
+</ParamField>
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/products/10
+```
+
+---
+
+## List ad sizes
+
+```
+GET /adSizes/
+```
+
+Returns ad sizes for a specific product. By default (or when `active=true`), only active ad sizes are returned.
+
+### Query parameters
+
+<ParamField query="product_id" type="integer" required>
+  The ID of the product to retrieve ad sizes for. This parameter is required.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  When `true` or omitted, return only active ad sizes. When explicitly `false`, return inactive ad sizes.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/adSizes/?product_id=10"
+```
+
+### Example response
+
+```json
+{
+  "ad_sizes": [
+    {
+      "id": 55,
+      "subUnitOfAdSizeID": null,
+      "product_id": 10,
+      "key_date": null,
+      "scheduling_units": "Page",
+      "schedule_concurrent_limit": null,
+      "width": 8.5,
+      "height": 11,
+      "description": "Full page",
+      "name": "Full Page",
+      "location_id": null,
+      "date_created": "2022-03-01",
+      "date_deleted": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the ad size.
+</ResponseField>
+
+<ResponseField name="subUnitOfAdSizeID" type="integer">
+  If this ad size is a sub-unit of another, the parent ad size ID; otherwise `null`.
+</ResponseField>
+
+<ResponseField name="product_id" type="integer">
+  The ID of the product this ad size belongs to.
+</ResponseField>
+
+<ResponseField name="key_date" type="string">
+  Optional key date associated with this size.
+</ResponseField>
+
+<ResponseField name="scheduling_units" type="string">
+  The unit type used when scheduling this size (for example, `Page`, `Column Inch`).
+</ResponseField>
+
+<ResponseField name="schedule_concurrent_limit" type="integer">
+  Maximum number of concurrent bookings allowed, if any.
+</ResponseField>
+
+<ResponseField name="width" type="number">
+  Width dimension of the ad.
+</ResponseField>
+
+<ResponseField name="height" type="number">
+  Height dimension of the ad.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Optional description of the ad size.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Display name of the ad size.
+</ResponseField>
+
+<ResponseField name="location_id" type="integer">
+  The ID of the product location this ad size is tied to, if any.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  Date the ad size was created.
+</ResponseField>
+
+<ResponseField name="date_deleted" type="string">
+  Date the ad size was deleted, or `null` if still active.
+</ResponseField>
+
+---
+
+## Get a single ad size
+
+```
+GET /adSizes/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the ad size.
+</ParamField>
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/adSizes/55
+```
+
+---
+
+## List ad rates
+
+```
+GET /adRates/
+```
+
+Returns ad rates for a specific product. By default (or when `active=true`), only current (active) rates are returned. Passing `active=false` returns past (expired) rates.
+
+### Query parameters
+
+<ParamField query="product_id" type="integer" required>
+  The ID of the product to retrieve ad rates for. This parameter is required.
+</ParamField>
+
+<ParamField query="ad_size_id" type="integer">
+  Optionally filter rates to a specific ad size.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  When `true` or omitted, return current rates. When explicitly `false`, return past rates.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/adRates/?product_id=10&ad_size_id=55"
+```
+
+### Example response
+
+```json
+{
+  "ad_rates": [
+    {
+      "id": 220,
+      "ad_size_id": 55,
+      "publication_id": 10,
+      "name": "Full Page Open Rate",
+      "rate": 1500.00,
+      "units": 1,
+      "location_id": null,
+      "date_created": "2023-01-01",
+      "date_deleted": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the ad rate.
+</ResponseField>
+
+<ResponseField name="ad_size_id" type="integer">
+  The ID of the ad size this rate applies to.
+</ResponseField>
+
+<ResponseField name="publication_id" type="integer">
+  The ID of the product this rate belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Display name for this rate card entry.
+</ResponseField>
+
+<ResponseField name="rate" type="number">
+  The price for this rate.
+</ResponseField>
+
+<ResponseField name="units" type="integer">
+  The number of scheduling units included at this rate.
+</ResponseField>
+
+<ResponseField name="location_id" type="integer">
+  The ID of the location this rate is tied to, if any.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  Date the rate was created.
+</ResponseField>
+
+<ResponseField name="date_deleted" type="string">
+  Date the rate was deleted (expired), or `null` if currently active.
+</ResponseField>
+
+---
+
+## Get a single ad rate
+
+```
+GET /adRates/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the ad rate.
+</ParamField>
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/adRates/220
+```
+
+---
+
+## List issues
+
+```
+GET /issues/
+```
+
+Returns all issues for a specific product. Issues represent individual editions of a publication (for example, the March 2024 print issue).
+
+### Query parameters
+
+<ParamField query="product_id" type="integer" required>
+  The ID of the product to retrieve issues for. This parameter is required.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/issues/?product_id=10"
+```
+
+### Example response
+
+```json
+{
+  "issues": [
+    {
+      "id": 301,
+      "name": "March 2024",
+      "date_print": "2024-03-01",
+      "date_mail": "2024-03-03",
+      "date_sell_close": "2024-02-15",
+      "product_id": 10
+    }
+  ]
+}
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the issue.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Display name of the issue.
+</ResponseField>
+
+<ResponseField name="date_print" type="string">
+  The scheduled print date.
+</ResponseField>
+
+<ResponseField name="date_mail" type="string">
+  The scheduled mail date.
+</ResponseField>
+
+<ResponseField name="date_sell_close" type="string">
+  The deadline date after which new ad sales are no longer accepted for this issue.
+</ResponseField>
+
+<ResponseField name="product_id" type="integer">
+  The ID of the product this issue belongs to.
+</ResponseField>
+
+---
+
+## Get a single issue
+
+```
+GET /issues/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the issue.
+</ParamField>
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/issues/301
+```
+
+---
+
+## List sections
+
+```
+GET /sections/
+```
+
+Returns all sections for a specific product. Sections are named editorial or advertising zones within a publication (for example, "Business", "Classifieds").
+
+### Query parameters
+
+<ParamField query="product_id" type="integer" required>
+  The ID of the product to retrieve sections for. This parameter is required.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/sections/?product_id=10"
+```
+
+---
+
+## Get a single section
+
+```
+GET /sections/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the section.
+</ParamField>
+
+---
+
+## List locations
+
+```
+GET /locations/
+```
+
+Returns all locations for a specific product. Locations represent physical or positional placement options within a product (for example, "Back Cover", "Inside Front Cover").
+
+### Query parameters
+
+<ParamField query="product_id" type="integer" required>
+  The ID of the product to retrieve locations for. This parameter is required.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/locations/?product_id=10"
+```
+
+---
+
+## Get a single location
+
+```
+GET /locations/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the location.
+</ParamField>

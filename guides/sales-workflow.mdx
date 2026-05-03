@@ -1,0 +1,118 @@
+---
+title: "Running Your Ad Sales Workflow in MediaOS"
+description: "Manage your complete ad sales cycle in MediaOS — from adding a lead and checking inventory to building proposals, getting signatures, and tracking deals."
+---
+
+MediaOS gives your sales team a single place to manage every step of the ad sales process. Whether you are working with a brand-new lead or renewing a long-term advertiser, the workflow moves through a predictable sequence: qualify the opportunity, check what inventory is available, build a detailed proposal, collect approval, and close the deal. This guide walks through each stage in order.
+
+<Steps>
+  <Step title="Add an advertiser or lead">
+    Every sale starts with an account. Go to **Accounts** and search for the advertiser. If they do not exist yet, create a new account record and fill in the company name, primary contact, billing information, and any relevant notes.
+
+    Once the account exists, open it and use the **+ Deal** button to create a deal. A deal is an early-stage opportunity that lets you track probability, estimated value, close date, the sales rep responsible, and the decision-maker contact — all before a formal proposal is built.
+
+    <Tip>
+      If you are working on a deal that is not yet tied to specific products, you can add product forecast line items directly on the deal record. These feed the forecasting charts and let you include the opportunity in pipeline reporting even before a proposal exists.
+    </Tip>
+  </Step>
+
+  <Step title="Check product availability and inventory">
+    Before building a proposal, confirm that the ad space you plan to sell is actually available.
+
+    Navigate to **Sales → Inventory** to view availability by product. For issue-based products (magazines, newspapers), the inventory view shows how many units or pages are open for each issue. For time-based or digital products, you can see scheduled slots and booked quantities.
+
+    Use the date range and product filters to narrow results to the exact issues or time periods relevant to your proposal.
+
+    <Note>
+      Inventory is updated in real time as contracts are created and line items are added, so the numbers you see reflect what is currently booked.
+    </Note>
+  </Step>
+
+  <Step title="Build a proposal with line items and pricing">
+    From the deal record, click **Convert to Proposal** to open the deal conversion wizard. This wizard walks you through mapping your forecast line items to specific product specifications — ad size, placement, section, quantity, rate, and run date — before generating a formal proposal (contract).
+
+    If you prefer to skip the conversion wizard and start from a blank proposal, click **Skip Conversion**. You can also create a new contract directly from **Sales → Contracts → + Contract**.
+
+    On the contract edit screen you can:
+
+    - Add multiple products in a single contract, each with its own package of insertions
+    - Set per-line rates, quantities, fees, and discounts
+    - Apply a contract-level percentage discount
+    - Attach notes and special instructions to individual insertions
+
+    <Info>
+      MediaOS supports both issue-based insertions (tied to a specific publication issue) and date-based or time-based insertions depending on how your products are configured.
+    </Info>
+  </Step>
+
+  <Step title="Send for approval or e-signature">
+    Once the proposal is complete, send it to the advertiser for review. From the contract record you can:
+
+    - **Email the proposal** directly to the advertiser's billing or decision-maker contact using a marketing template
+    - **Request an e-signature** to collect a legally binding digital signature on the contract
+    - Share a **client portal link** so the advertiser can view, comment on, and approve the proposal online
+
+    When the advertiser approves or signs, MediaOS records the event and can trigger any automation workflows you have configured — for example, sending a welcome email or creating a production task.
+  </Step>
+
+  <Step title="Mark as sold and convert to a contract">
+    After approval, mark the contract status as **Won** (or your configured equivalent) to convert it from a proposal into an active contract. This action:
+
+    - Locks the contract and prevents accidental edits
+    - Confirms the insertions, making them visible in delivery workflows
+    - Records the sold date used in revenue reporting
+    - Removes the deal from open-pipeline forecasting and moves it to confirmed revenue
+
+    You can set the pipeline status manually or configure an automation workflow to update it automatically when an e-signature is received or a specific condition is met.
+  </Step>
+
+  <Step title="Track deals in the sales pipeline">
+    The **Sales → Deals** tab gives you a kanban-style or list view of all open opportunities, organized by pipeline stage. Each deal card shows the advertiser, estimated value, close date, probability, and assigned sales rep.
+
+    Pipeline stages (such as Prospecting, Proposal Sent, Negotiation, and Won) are fully customizable under **Settings → Pipelines**. You can create multiple pipelines for different sales processes and assign custom colors and icons to each stage.
+
+    From the pipeline view you can:
+
+    - Drag deals between stages
+    - Filter by sales rep, advertiser, product, or tag
+    - Bulk update stage or assignment for multiple deals at once
+
+    <Tip>
+      Set up pipeline-based automation to trigger follow-up tasks, emails, or status changes automatically when a deal moves to a new stage.
+    </Tip>
+  </Step>
+
+  <Step title="Sales run sheet and forecasting">
+    **Sales Run Sheet**
+
+    The Sales Run Sheet (accessible from **Sales → Contracts** or the Reports menu) lists every sold insertion line item with its run date, advertiser, product, size, placement, and net rate. It is the master production schedule for your sales team and is the primary handoff document to the delivery/production team.
+
+    Filter the run sheet by date range, product, sales rep, or insertion status. You can export it to CSV for use in external systems.
+
+    **Sales Forecasting**
+
+    Navigate to **Sales → Forecast** to see forward-looking pipeline charts. The forecasting dashboard displays:
+
+    - Pipeline totals by deal stage, broken down by month, quarter, or year
+    - Revenue by product and by sales rep
+    - Page count projections by ad size
+    - Probability-weighted forecast amounts
+
+    Forecasting requires at least one deal with line items or a proposal attached. Admins and sales managers with access to the Plus plan or higher can also open the **Advanced Forecasting** report for deeper analysis.
+
+    <CardGroup cols={2}>
+      <Card title="Sales Goals" icon="bullseye-arrow">
+        Set monthly or annual revenue targets for individual sales reps under **Sales → Goals**. Goals appear alongside actuals in the forecasting view so reps can track their progress.
+      </Card>
+      <Card title="Target Accounts" icon="crosshairs">
+        Use **Sales → Target Accounts** to maintain a list of prospects you are actively pursuing. Target accounts can be assigned to a sales rep and tracked independently of active deals.
+      </Card>
+    </CardGroup>
+  </Step>
+</Steps>
+
+## Related pages
+
+- [Managing ad delivery and production](/guides/ad-delivery)
+- [Reports and analytics](/guides/reporting)
+- [Automating tasks and workflows](/guides/automation)

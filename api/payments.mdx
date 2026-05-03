@@ -1,0 +1,173 @@
+---
+title: "REST API endpoints for payments"
+description: "Search and retrieve payment records via the MediaOS REST API. Filter by advertiser, contract, date, amount, and the user who entered the payment."
+---
+
+The payments endpoints let you list and retrieve payment records in your MediaOS account. A payment represents money received from an advertiser and applied to one or more invoices.
+
+All list requests support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.
+
+---
+
+## List payments
+
+```
+GET /payments/
+```
+
+Returns a paginated list of payment records matching the supplied filters.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the payment with this exact ID.
+</ParamField>
+
+<ParamField query="advertiser_id" type="integer">
+  Return only payments for this advertiser.
+</ParamField>
+
+<ParamField query="contract_id" type="integer">
+  Return only payments associated with this contract.
+</ParamField>
+
+<ParamField query="entered_by_user_id" type="integer">
+  Return only payments entered by the user with this ID.
+</ParamField>
+
+<ParamField query="amount_from" type="number">
+  Return payments with an amount greater than or equal to this value.
+</ParamField>
+
+<ParamField query="amount_to" type="number">
+  Return payments with an amount less than or equal to this value.
+</ParamField>
+
+<ParamField query="date_created_before" type="string">
+  Return payments created on or before this date. Use ISO 8601 format (for example, `2024-12-31`).
+</ParamField>
+
+<ParamField query="date_created_after" type="string">
+  Return payments created on or after this date.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by payment ID (default) |
+| `date_created` | Sort by creation date |
+| `amount` | Sort by payment amount |
+
+Default sort order is `desc`.
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/payments/?advertiser_id=1042&date_created_after=2024-01-01&sort_by=date_created&sort_order=desc"
+```
+
+### Example response
+
+```json
+{
+  "payments": [
+    {
+      "id": 7701,
+      "advertiser_id": 1042,
+      "entered_by_user_id": 3,
+      "contract_id": 8801,
+      "currency": { "id": 1, "code": "USD", "symbol": "$" },
+      "currency_exchange_rate": null,
+      "type": "Check",
+      "amount": 1328.13,
+      "date_created": "2024-02-18",
+      "date_refunded": null,
+      "notes": "Check #4492",
+      "line": [
+        {
+          "invoice_id": 4401,
+          "amount_applied": 1328.13
+        }
+      ]
+    }
+  ],
+  "count": 1
+}
+```
+
+---
+
+## Get a single payment
+
+```
+GET /payments/{id}
+```
+
+Returns a single payment record by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the payment.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/payments/7701
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the payment.
+</ResponseField>
+
+<ResponseField name="advertiser_id" type="integer">
+  The ID of the advertiser this payment was received from.
+</ResponseField>
+
+<ResponseField name="entered_by_user_id" type="integer">
+  The ID of the user who recorded this payment.
+</ResponseField>
+
+<ResponseField name="contract_id" type="integer">
+  The ID of the contract this payment is associated with, if any.
+</ResponseField>
+
+<ResponseField name="currency" type="object">
+  The currency used for this payment.
+</ResponseField>
+
+<ResponseField name="currency_exchange_rate" type="number">
+  The exchange rate at the time of payment, if a non-default currency was used.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The payment method type (for example, `Check`, `Credit Card`, `ACH`).
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  The total payment amount.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  The date the payment was recorded.
+</ResponseField>
+
+<ResponseField name="date_refunded" type="string">
+  The date the payment was refunded, or `null` if it has not been refunded.
+</ResponseField>
+
+<ResponseField name="notes" type="string">
+  Free-text notes on the payment (for example, a check number or reference).
+</ResponseField>
+
+<ResponseField name="line" type="array">
+  The invoices this payment has been applied to, with the amount applied to each.
+</ResponseField>

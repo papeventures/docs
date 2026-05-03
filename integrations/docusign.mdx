@@ -1,0 +1,70 @@
+---
+title: "Send Contracts for E-Signature via DocuSign"
+description: "Connect DocuSign to MediaOS to send proposals and contracts for electronic signature. Proposals automatically convert to contracts once signed."
+---
+
+MediaOS integrates with DocuSign to let you send proposals directly to advertisers for electronic signature without leaving your workflow. Once a signer completes the envelope, MediaOS automatically converts the proposal to a signed contract and records the signature date. You only need a single DocuSign account for your entire MediaOS organization — individual sales reps do not need their own DocuSign logins. The DocuSign integration is available on the **Plus plan** and above.
+
+## Connecting DocuSign
+
+<Steps>
+  <Step title="Open the DocuSign integration settings">
+    Go to **Settings > Integrations** and click **Configure** next to **DocuSign**. The DocuSign credentials panel opens.
+  </Step>
+  <Step title="Enter your DocuSign API credentials">
+    Enter your **DocuSign API Email (or API Username)** and your **DocuSign API Password** in the fields provided. These are the credentials for the DocuSign account that will be the sending account for all envelopes sent from MediaOS.
+
+    Click **Save**. MediaOS immediately validates your credentials against the DocuSign API. If validation succeeds, you see a green "Credentials validated" confirmation. If validation fails, double-check that you have entered the API email and API password exactly as they appear in your DocuSign account settings — not your regular DocuSign login password.
+
+    <Note>
+      You only need the standard single-user DocuSign account. MediaOS handles all signature requests through this one shared account, so your sales reps do not each require a DocuSign seat.
+    </Note>
+  </Step>
+  <Step title="Configure counter-signature (optional)">
+    If your organization requires a counter-signature from an internal team member before a contract is considered fully executed, enable the **Enable Counter Signature** toggle. Then use the **Counter Signature User** dropdown to select the MediaOS user who will provide the counter-signature.
+
+    When counter-signature is enabled, DocuSign will route the envelope to the selected user after the advertiser signs, and the contract will not be marked fully executed until the counter-signature is complete.
+  </Step>
+</Steps>
+
+## Sending a contract for signature
+
+<Steps>
+  <Step title="Open a proposal or contract in MediaOS">
+    Navigate to the advertiser's account and open the proposal you want to send for signature. The proposal must be in a state ready for client review before you can request a signature.
+  </Step>
+  <Step title="Click Send for Signature">
+    In the proposal or contract toolbar, click **Send for Signature**. MediaOS generates a PDF of the proposal and creates a DocuSign envelope containing the document. The envelope is addressed to the advertiser's primary contact email on file.
+
+    <Tip>
+      Verify that the advertiser's contact record has a valid email address before sending. MediaOS uses that address as the recipient in DocuSign.
+    </Tip>
+  </Step>
+  <Step title="Advertiser receives and signs the DocuSign envelope">
+    The advertiser receives an email from DocuSign with a link to review and sign the proposal. They click through the standard DocuSign signing flow. No DocuSign account is required on their end.
+  </Step>
+  <Step title="Track signature status on the contract">
+    After sending, the contract in MediaOS shows the current signature status. You can see whether the envelope is:
+
+    - **Sent** — delivered to the advertiser, awaiting their signature
+    - **Viewed** — the advertiser has opened the envelope
+    - **Signed** — the advertiser has completed their signature
+    - **Completed** — all required signatures (including counter-signature, if enabled) are done
+
+    MediaOS polls DocuSign for status updates automatically. Refresh the contract record to see the latest status.
+  </Step>
+  <Step title="Counter-sign (if required)">
+    If you enabled counter-signature, the selected counter-signer receives a DocuSign notification after the advertiser signs. They complete the counter-signature through the standard DocuSign interface. Once both parties have signed, MediaOS marks the contract as fully executed and records the completion date.
+  </Step>
+  <Step title="Proposal converts to a signed contract">
+    When all required signatures are captured, MediaOS automatically converts the proposal to a contract and locks it from further editing. The signed PDF is stored in the contract record and available for download at any time.
+  </Step>
+</Steps>
+
+## Clearing the DocuSign connection
+
+To disconnect DocuSign or switch to the MediaOS built-in signature option, go to **Settings > Integrations > DocuSign** and click **Clear & Use Built-in Signature**. This removes the stored DocuSign credentials from MediaOS. Contracts already sent through DocuSign are not affected.
+
+<Warning>
+  Clearing credentials while envelopes are in-flight (awaiting signature) does not cancel those envelopes in DocuSign. The recipients can still complete their signatures, but MediaOS will no longer receive status updates for those envelopes. Complete or void any open envelopes in your DocuSign account before clearing the connection.
+</Warning>

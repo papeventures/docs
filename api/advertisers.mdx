@@ -1,0 +1,204 @@
+---
+title: "REST API endpoints for advertisers"
+description: "Search, filter, and retrieve advertiser records from MediaOS. Use query parameters to narrow results by name, owner, status, and creation date."
+---
+
+The advertisers endpoints let you list and retrieve advertiser (and lead) records stored in your MediaOS account. Advertisers are the companies or individuals that purchase advertising. A record with `is_lead: true` has not yet been converted to an active advertiser.
+
+All list requests support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.
+
+---
+
+## List advertisers
+
+<ParamField path="method" type="GET">
+  `/advertisers/`
+</ParamField>
+
+Returns a paginated list of advertiser records matching the supplied filters.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the advertiser with this exact ID.
+</ParamField>
+
+<ParamField query="name" type="string">
+  Filter by advertiser name. Supports wildcard pattern matching — for example, pass `Acme%` to match any name starting with "Acme".
+</ParamField>
+
+<ParamField query="is_lead" type="boolean">
+  When `true`, return only leads. When `false`, return only converted advertisers.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  Filter by active status. When `true`, return only active advertisers; when `false`, return only inactive advertisers.
+</ParamField>
+
+<ParamField query="created_by_user_id" type="integer">
+  Return advertisers created by the user with this ID.
+</ParamField>
+
+<ParamField query="owned_by_user_id" type="integer">
+  Return advertisers owned (assigned) to the user with this ID.
+</ParamField>
+
+<ParamField query="date_created_before" type="string">
+  Return advertisers created on or before this date. Use ISO 8601 format (for example, `2024-12-31`).
+</ParamField>
+
+<ParamField query="date_created_after" type="string">
+  Return advertisers created on or after this date.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by advertiser ID (default) |
+| `name` | Sort by advertiser name |
+| `is_lead` | Sort by lead status |
+| `date_created` | Sort by creation date |
+| `active` | Sort by active status |
+
+Default sort order is `desc`.
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/advertisers/?is_lead=false&active=true&sort_by=name&sort_order=asc&per_page=25&page=1"
+```
+
+### Example response
+
+```json
+{
+  "advertisers": [
+    {
+      "id": 1042,
+      "name": "Acme Corporation",
+      "description": "Regional print and digital advertiser.",
+      "created_by_user": {
+        "id": 3,
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane@example.com"
+      },
+      "owned_by_user": {
+        "id": 7,
+        "first_name": "Bob",
+        "last_name": "Jones",
+        "email": "bob@example.com"
+      },
+      "date_created": "2023-06-15 09:22:00",
+      "sales_locked": false,
+      "active": true,
+      "primary_address": {
+        "id": 88,
+        "address1": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62701"
+      },
+      "primary_email": {
+        "id": 201,
+        "value": "billing@acme.example.com"
+      },
+      "primary_phone": 145,
+      "is_lead": false,
+      "addresses": [],
+      "contact_data": [],
+      "last_modified": "2024-03-01 14:05:33"
+    }
+  ],
+  "count": 1
+}
+```
+
+---
+
+## Get a single advertiser
+
+```
+GET /advertisers/{id}
+```
+
+Returns a single advertiser record by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the advertiser.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/advertisers/1042
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the advertiser.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The advertiser's display name.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Optional free-text description.
+</ResponseField>
+
+<ResponseField name="created_by_user" type="object">
+  The user who created this advertiser record. See [Users](/api/ads) for the user object shape.
+</ResponseField>
+
+<ResponseField name="owned_by_user" type="object">
+  The user currently assigned as the owner (sales rep) for this advertiser.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  ISO 8601 datetime when the record was created.
+</ResponseField>
+
+<ResponseField name="sales_locked" type="boolean">
+  When `true`, the advertiser is locked and cannot be edited by non-admin users.
+</ResponseField>
+
+<ResponseField name="active" type="boolean">
+  Whether the advertiser is currently active.
+</ResponseField>
+
+<ResponseField name="primary_address" type="object">
+  The advertiser's primary mailing address.
+</ResponseField>
+
+<ResponseField name="primary_email" type="object">
+  The advertiser's primary email contact data record.
+</ResponseField>
+
+<ResponseField name="primary_phone" type="integer">
+  The ID of the advertiser's primary phone contact data record.
+</ResponseField>
+
+<ResponseField name="is_lead" type="boolean">
+  `true` if this record is still a lead and has not been converted to an advertiser.
+</ResponseField>
+
+<ResponseField name="addresses" type="array">
+  All addresses associated with this advertiser.
+</ResponseField>
+
+<ResponseField name="contact_data" type="array">
+  All contact data records (emails, phones, etc.) associated with this advertiser.
+</ResponseField>
+
+<ResponseField name="last_modified" type="string">
+  ISO 8601 datetime when the record was last updated.
+</ResponseField>

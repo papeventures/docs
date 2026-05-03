@@ -1,0 +1,91 @@
+---
+title: "Sync MediaOS Advertisers with HubSpot CRM"
+description: "Connect HubSpot to MediaOS to sync advertiser records and contacts between both platforms and view MediaOS activity inside HubSpot."
+---
+
+The HubSpot integration lets you keep your CRM in sync with your ad sales activity in MediaOS. When connected, contacts and companies from HubSpot are imported into MediaOS as contacts and advertisers, and MediaOS contract, proposal, and invoice data becomes visible in the corresponding HubSpot company timeline. The integration requires a **Premium** MediaOS plan and was introduced in version **2022-01**.
+
+## Connecting HubSpot
+
+You can connect HubSpot to MediaOS using OAuth (recommended) or by entering a HubSpot API key directly.
+
+### OAuth connection (recommended)
+
+<Steps>
+  <Step title="Open the HubSpot integration page">
+    Go to **Settings > Integrations** and click **Configure** next to **HubSpot**.
+  </Step>
+  <Step title="Authorize MediaOS in HubSpot">
+    Click **Connect**. You are redirected to HubSpot's OAuth authorization screen. Log in with your HubSpot credentials and grant MediaOS permission to access your portal's contacts and companies. After approving, you are returned to MediaOS and your HubSpot portal ID is stored automatically.
+  </Step>
+  <Step title="Confirm the connection">
+    The HubSpot integration page now shows your connected portal. You can click **Disconnect** at any time to revoke the OAuth token without deleting any synced data.
+  </Step>
+</Steps>
+
+### API key connection (legacy)
+
+If your HubSpot account still uses private API keys, you can enter the key directly:
+
+1. In the HubSpot integration page, enter your **HubSpot API Key** in the field provided.
+2. Click **Save**. MediaOS fetches your HubSpot portal ID automatically and stores both values.
+
+<Note>
+  HubSpot has deprecated private API keys for many portal types. If you are setting up the integration for the first time, use the OAuth connection method above.
+</Note>
+
+## What data syncs
+
+| MediaOS record | HubSpot record | Direction |
+|---|---|---|
+| Advertiser | Company | HubSpot → MediaOS (import) |
+| Contact | Contact | HubSpot → MediaOS (import) |
+| Contract / Proposal | Company timeline activity | MediaOS → HubSpot (display) |
+| Invoice | Company timeline activity | MediaOS → HubSpot (display) |
+
+**Sync direction explained:**
+
+- **HubSpot → MediaOS:** Contacts and companies from HubSpot are imported into MediaOS as contacts and advertiser accounts. MediaOS checks for new or recently updated records and imports them. Items may take up to 30 minutes to appear after the initial connection.
+- **MediaOS → HubSpot:** Contracts, proposals, and invoices created in MediaOS are surfaced on the associated company's timeline in HubSpot. Your HubSpot users can see the full ad sales picture without leaving HubSpot.
+
+<Info>
+  The sync is not fully bidirectional for all record types. Advertisers you create in MediaOS are not automatically pushed back into HubSpot as new companies. If you need records to flow from MediaOS into HubSpot, create them first in HubSpot and let the import bring them into MediaOS.
+</Info>
+
+## Triggering a manual import
+
+After connecting, click **Download Contacts** on the HubSpot integration page to run an immediate import of contacts and companies from HubSpot. This is useful when you first connect and want to populate MediaOS without waiting for the automated sync interval.
+
+## Field mapping
+
+When HubSpot contacts and companies are imported, MediaOS maps the standard HubSpot fields to the corresponding MediaOS fields:
+
+| HubSpot field | MediaOS field |
+|---|---|
+| Company name | Advertiser name |
+| Company website | Website |
+| Company phone | Phone |
+| Contact first name | Contact first name |
+| Contact last name | Contact last name |
+| Contact email | Contact email |
+| Contact phone | Contact phone |
+
+Custom HubSpot properties are not mapped by default. If you need additional fields carried over, contact MediaOS support to discuss custom field mapping options.
+
+## Troubleshooting sync errors
+
+**Contacts not appearing in MediaOS after connecting**
+
+The initial import can take up to 30 minutes. If contacts still do not appear after 30 minutes, click **Download Contacts** on the integration page to manually trigger the sync.
+
+**"Syncing in progress" notice persists**
+
+If the syncing notice remains for an extended period, reload the page. The import runs as a background job and the notice may remain visible briefly after the job completes.
+
+**OAuth token issues**
+
+If you see an authentication error after the connection was previously working, your OAuth token may have been revoked (for example, if a HubSpot admin removed the MediaOS app from your connected apps list). Go to **Settings > Integrations > HubSpot**, click **Disconnect**, then reconnect using the OAuth flow to generate a fresh token.
+
+**Duplicate advertiser records**
+
+If a contact or company already exists in MediaOS when HubSpot imports it, MediaOS attempts to match on email address and company name before creating a duplicate. If you find duplicates after import, use the MediaOS merge tool on the advertiser record to consolidate them.

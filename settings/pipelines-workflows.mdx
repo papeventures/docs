@@ -1,0 +1,102 @@
+---
+title: "Sales Pipelines and Status Workflows in MediaOS"
+description: "Create custom pipeline stages and automate status transitions for accounts, contracts, deals, invoices, and more to keep your team's workflow moving."
+---
+
+Pipelines in MediaOS give your team a shared vocabulary for where each deal, account, or invoice stands in your process. Each pipeline is a named, ordered collection of statuses that you define. You can create separate pipelines for different object types — for example, a "New Business" pipeline for advertiser accounts and a "Contract Approval" pipeline for contracts. Pipelines are available on the Standard plan (for deals) and Premium plan (for all other object types). Navigate to **Settings > Pipelines** to configure them.
+
+## What a pipeline is
+
+A pipeline is a group of statuses assigned to a specific object type. Each status represents a stage in your workflow — for example, "Prospecting," "Proposal Sent," "Negotiating," "Closed Won," and "Closed Lost" might be the stages in an advertiser pipeline. Team members update the status of a record as it moves through your process, and the pipeline view shows you at a glance how many records are at each stage.
+
+MediaOS supports pipelines for the following object types:
+
+| Object type | Pipeline support | Automation support |
+|---|---|---|
+| Account (Advertiser) | Yes | Yes |
+| Agency | Yes | No |
+| Contact | Yes | Yes |
+| Contract | Yes | Yes |
+| Deal | Yes | Yes |
+| Content (Editorial) | Yes | No |
+| Line Item | Yes | Yes |
+| Request | Yes | Yes |
+| Invoice | Yes | Yes |
+| Payment | Yes | Yes |
+| Tasks | Yes | No |
+| Products | Yes | No |
+
+## Creating a pipeline
+
+<Steps>
+  <Step title="Go to Settings > Pipelines">
+    Navigate to **Settings > Pipelines**. The page is organized into tabs, one for each object type. Click the tab for the object type you want to configure (for example, **Account** or **Contract**).
+  </Step>
+  <Step title="Create a new pipeline">
+    If no pipeline exists for this object type yet, click **New Pipeline**. Enter a name for the pipeline (for example, "New Business" or "Renewal Cycle") and click **Create Pipeline**.
+
+    You can create multiple pipelines per object type on the Premium plan, which is useful when different teams or products follow different workflows. Select the active pipeline from the dropdown at the top of the tab.
+  </Step>
+  <Step title="Add statuses to the pipeline">
+    With your pipeline selected, click **Add Pipeline Status**. In the modal that appears:
+
+    - Enter a **Name** for the status (e.g., "Proposal Sent").
+    - Choose a **Color** to visually distinguish it in the pipeline view. Options include Pink, Red, Yellow, Green, Mint, Light Blue, Blue, Purple, Gray, and Black.
+    - Click **Save**.
+
+    Repeat this step to add all the stages in your workflow.
+  </Step>
+  <Step title="Order the statuses">
+    Drag and drop statuses in the table to arrange them in the order your workflow follows. The order you set here is the order statuses appear when a user updates a record.
+  </Step>
+</Steps>
+
+## Editing and renaming a pipeline
+
+To rename a pipeline, select it from the dropdown and click the **pencil icon** next to the pipeline name. Enter the new name and click **Update Pipeline Name**.
+
+To edit a status, click **Edit** next to it in the status table. You can change the name and color. To delete a status, click **Delete**. If any records are currently assigned to that status, MediaOS prompts you to choose a replacement status before deleting — all existing records are transferred to the status you select.
+
+## Setting a default pipeline
+
+When multiple pipelines exist for an object type, the first pipeline in the list is used as the default when new records are created. To change which pipeline is the default, reorder your pipelines using the dropdown. Contact MediaOS support if you need to set a specific pipeline as the system default.
+
+## Pipeline automation (smart status workflows)
+
+On the **Premium plan**, pipelines support automation through the **Automation** tab on each object type's pipeline configuration. Automation rules fire when a record's status changes and can trigger:
+
+- **Email notifications** — send an automatic email to the advertiser or a team member
+- **Internal notifications** — alert a specific user or user group in MediaOS
+- **Automatic assignments** — reassign the record to a different sales rep or team
+- **Task creation** — create a follow-up task linked to the record
+- **Slack notifications** — post a message to a Slack channel (requires the Slack integration)
+- **Monday.com tasks** — create a task in Monday.com (requires the Monday.com integration)
+
+To set up automation:
+
+1. Select the object type and pipeline in **Settings > Pipelines**.
+2. Click the **Automation** tab.
+3. Select the status transition you want to automate (e.g., when a contract moves to "Signed").
+4. Add one or more actions to perform when that transition occurs.
+5. Save the automation rule.
+
+<Note>
+  Pipeline automation is a Premium feature. The **Automation** tab is visible but locked on non-Premium plans. Upgrade your plan to enable it.
+</Note>
+
+## Using pipelines in the sales view
+
+Once your pipelines are configured, users can update a record's status directly from the record page or from any list view. Click the status badge on a contract, advertiser account, or deal to open a dropdown of available statuses in the current pipeline.
+
+In the sales board view, records are grouped into columns by pipeline status, giving your team a kanban-style overview. Drag a card from one column to another to update its status.
+
+## Pipeline reporting
+
+Pipeline data feeds into MediaOS reporting so you can track deal velocity and identify bottlenecks. In the **Reports** section, the pipeline report shows:
+
+- The number of records at each pipeline stage
+- Average time spent in each stage
+- Conversion rates between stages (for advertiser and deal pipelines)
+- Total value of contracts or deals at each stage
+
+Use the pipeline report to identify which stages your deals commonly stall in, and adjust your workflow or automation rules accordingly.

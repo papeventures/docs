@@ -1,0 +1,188 @@
+---
+title: "REST API endpoints for contacts"
+description: "Search, filter, and retrieve contact records via the MediaOS REST API. Filter by advertiser, owner, lead status, and creation date."
+---
+
+The contacts endpoints let you list and retrieve individual contacts stored in your MediaOS account. A contact is a person associated with an advertiser or agency. Contacts can also be marked as leads.
+
+All list requests support pagination and sorting. See [Pagination and Sorting](/api/pagination) for details.
+
+---
+
+## List contacts
+
+```
+GET /contacts/
+```
+
+Returns a paginated list of contact records matching the supplied filters.
+
+### Query parameters
+
+<ParamField query="id" type="integer">
+  Return the contact with this exact ID.
+</ParamField>
+
+<ParamField query="name" type="string">
+  Filter contacts by name. Supports wildcard matching with `%` (for example, `Smith%`).
+</ParamField>
+
+<ParamField query="advertiser_id" type="integer">
+  Return only contacts associated with the advertiser with this ID.
+</ParamField>
+
+<ParamField query="is_lead" type="boolean">
+  Accepted by the API without error, but does not currently filter results — all contacts are returned regardless of this value.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  Filter by active status. Active contacts have no deletion date; inactive contacts have been soft-deleted.
+</ParamField>
+
+<ParamField query="created_by_user_id" type="integer">
+  Return contacts created by the user with this ID.
+</ParamField>
+
+<ParamField query="owned_by_user_id" type="integer">
+  Return contacts owned (assigned) to the user with this ID.
+</ParamField>
+
+<ParamField query="date_created_before" type="string">
+  Return contacts created on or before this date. Use ISO 8601 format (for example, `2024-12-31`).
+</ParamField>
+
+<ParamField query="date_created_after" type="string">
+  Return contacts created on or after this date.
+</ParamField>
+
+### Sorting
+
+Valid `sort_by` values for this endpoint:
+
+| Value | Description |
+|---|---|
+| `id` | Sort by contact ID (default) |
+| `first_name` | Sort by first name |
+| `last_name` | Sort by last name |
+| `title` | Sort by job title |
+
+Default sort order is `desc`.
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  "https://yourcompany.mediaosnow.com/API/contacts/?advertiser_id=1042&active=true&sort_by=last_name&sort_order=asc"
+```
+
+### Example response
+
+```json
+{
+  "contacts": [
+    {
+      "id": 305,
+      "advertiser_name": "Acme Corporation",
+      "full_name": "Sarah Connor",
+      "first_name": "Sarah",
+      "last_name": "Connor",
+      "title": "Marketing Director",
+      "created_by_user_id": 3,
+      "owned_by_user_id": 7,
+      "active": true,
+      "advertiser_id": 1042,
+      "date_created": "2023-07-20",
+      "date_deleted": null,
+      "addresses": [],
+      "contact_data": [],
+      "last_modified": "2024-01-10 08:45:00"
+    }
+  ],
+  "count": 1
+}
+```
+
+---
+
+## Get a single contact
+
+```
+GET /contacts/{id}
+```
+
+Returns a single contact record by its numeric ID.
+
+### Path parameters
+
+<ParamField path="id" type="integer" required>
+  The numeric ID of the contact.
+</ParamField>
+
+### Example request
+
+```bash
+curl -u "username:password" \
+  https://yourcompany.mediaosnow.com/API/contacts/305
+```
+
+### Response fields
+
+<ResponseField name="id" type="integer">
+  Unique identifier for the contact.
+</ResponseField>
+
+<ResponseField name="advertiser_name" type="string">
+  The name of the advertiser this contact belongs to.
+</ResponseField>
+
+<ResponseField name="full_name" type="string">
+  The contact's full name (first and last name concatenated).
+</ResponseField>
+
+<ResponseField name="first_name" type="string">
+  The contact's first name.
+</ResponseField>
+
+<ResponseField name="last_name" type="string">
+  The contact's last name.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  The contact's job title.
+</ResponseField>
+
+<ResponseField name="created_by_user_id" type="integer">
+  The ID of the user who created this contact record.
+</ResponseField>
+
+<ResponseField name="owned_by_user_id" type="integer">
+  The ID of the user currently assigned as owner of this contact.
+</ResponseField>
+
+<ResponseField name="active" type="boolean">
+  Whether the contact is active (not soft-deleted).
+</ResponseField>
+
+<ResponseField name="advertiser_id" type="integer">
+  The ID of the advertiser this contact is associated with.
+</ResponseField>
+
+<ResponseField name="date_created" type="string">
+  Date when the contact record was created.
+</ResponseField>
+
+<ResponseField name="date_deleted" type="string">
+  Date the contact was soft-deleted, or `null` if the contact is still active.
+</ResponseField>
+
+<ResponseField name="addresses" type="array">
+  All addresses associated with this contact.
+</ResponseField>
+
+<ResponseField name="contact_data" type="array">
+  All contact data records (emails, phones, etc.) associated with this contact.
+</ResponseField>
+
+<ResponseField name="last_modified" type="string">
+  ISO 8601 datetime when the record was last updated.
+</ResponseField>
